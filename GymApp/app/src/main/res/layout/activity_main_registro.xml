@@ -9,6 +9,7 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextFecha"
+        android:background="@null"
         android:layout_width="216dp"
         android:layout_height="41dp"
         android:hint="@string/textFecNac"
@@ -25,6 +26,7 @@
         android:id="@+id/editTextEmail"
         android:layout_width="272dp"
         android:layout_height="42dp"
+        android:background="@null"
         android:hint="@string/textMail"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,10 +35,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.792"
-        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck,TouchTargetSizeCheck" />
+        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck,TouchTargetSizeCheck,TextContrastCheck" />
 
     <com.google.android.material.textfield.TextInputEditText
+
         android:id="@+id/editTextApellido2"
+        android:background="@null"
         android:layout_width="272dp"
         android:layout_height="42dp"
         android:hint="@string/inputApellido2"
@@ -157,6 +161,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="272dp"
         android:layout_height="40dp"
+        android:background="@null"
         android:hint="@string/inputUsuario"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -164,7 +169,7 @@
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.418"
+        app:layout_constraintVertical_bias="0.429"
         tools:ignore="MissingConstraints,TextContrastCheck,TouchTargetSizeCheck,VisualLintOverlap" />
 
     <TextView
@@ -182,34 +187,34 @@
 
     <Button
         android:id="@+id/buttonVolver"
-        android:layout_width="107dp"
-        android:layout_height="43dp"
+        android:layout_width="104dp"
+        android:layout_height="39dp"
         android:backgroundTint="#4CAF50"
-        android:textColor="@color/black"
         android:text="@string/buttonVolver"
         android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.723"
+        app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96"
+        app:layout_constraintVertical_bias="0.963"
         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/btnRegistrar"
-        android:layout_width="124dp"
-        android:layout_height="42dp"
+        android:layout_width="130dp"
+        android:layout_height="39dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/buttonRegistrar"
         android:textAlignment="center"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintHorizontal_bias="0.295"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96"
+        app:layout_constraintVertical_bias="0.963"
         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -234,6 +239,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="272dp"
         android:layout_height="42dp"
+        android:background="@null"
         android:hint="@string/inputPassword"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -242,12 +248,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck,TextContrastCheck" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextNombre"
         android:layout_width="272dp"
         android:layout_height="42dp"
+        android:background="@null"
         android:hint="@string/inputNombre"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -256,10 +263,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.571"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck,TextContrastCheck" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextApellido1"
+        android:background="@null"
         android:layout_width="272dp"
         android:layout_height="42dp"
         android:hint="@string/inputApellido1"
@@ -277,6 +285,7 @@
         android:layout_width="348dp"
         android:layout_height="31dp"
         android:contextClickable="false"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
