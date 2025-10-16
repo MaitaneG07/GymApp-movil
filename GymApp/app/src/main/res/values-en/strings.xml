@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">FITAPP</string>
+    <string name="usuario">Username</string>
+    <string name="contraseña">Password</string>
+    <string name="remember">Remember your username</string>
+
+    <string name="registrar">Become a member!</string>
+    <string name="inputNombre">Enter your name</string>
+    <string name="inputApellido1">Enter first surname</string>
+    <string name="inputApellido2">Enter second surname</string>
+    <string name="inputMail">Enter valid email</string>
+    <string name="inputFecNac">Enter date of birth</string>
+    <string name="inputUsuario">Enter a username</string>
+    <string name="inputPassword">Enter password</string>
+
+    <string name="textUsuario">Username</string>
+    <string name="textPassword">Password</string>
+    <string name="textNombre">Name</string>
+    <string name="textApellido1">Surname 1</string>
+    <string name="textApellido2">Surname 2</string>
+    <string name="textMail">Email</string>
+    <string name="textFecNac">Date of\nBirth</string>
+
+    <string name="buttonVolver">BACK</string>
+    <string name="buttonRegistrar">REGISTER</string>
+    <string name="buttonLogin">LOGIN</string>
+    <string name="buttonRegistro">SIGN UP!</string>
+
+</resources>
