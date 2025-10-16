@@ -1,0 +1,39 @@
+<resources>
+
+
+    <string name="app_name">GymApp</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="remember">Recordar tu usuario</string>
+
+
+
+    <string name="registrar">Hazte socio!</string>
+    <string name="inputNombre">Introduce tu nombre</string>
+    <string name="inputApellido1">Introduce primer apellido</string>
+    <string name="inputApellido2">Introduce segundo apellido</string>
+    <string name="inputMail">Introduce email valido</string>
+    <string name="inputFecNac">Introduce Fecha de nacimiento</string>
+    <string name="inputUsuario">Introduce un usuario</string>
+    <string name="inputPassword">Introduce contraseña</string>
+
+
+    <string name="textUsuario">Usuario</string>
+    <string name="textPassword">Password</string>
+    <string name="textNombre">Nombre</string>
+    <string name="textApellido1">Apellido 1</string>
+    <string name="textApellido2">Apellido 2</string>
+    <string name="textMail">Email</string>
+    <string name="textFecNac">Fecha Nacimiento</string>
+
+
+    <string name="buttonVolver">VOLVER</string>
+    <string name="buttonRegistrar">REGISTRAR</string>
+    <string name="buttonLogin">LOGIN</string>
+    <string name="buttonRegistro">REGISTRATE!</string>
+
+
+
+
+
+</resources>
