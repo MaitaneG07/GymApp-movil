@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Music</string>
-    <string name="btn_registro">Registrarse</string>
-    <string name="btn_volver">Ya tengo cuenta</string>
-    <string name="btn_acceder">Iniciar Sesión</string>
-    <string name="et_user">Usuario</string>
-    <string name="et_password">Contraseña</string>
-    <string name="et_repit_password">Repetir contraseña</string>
-</resources>
