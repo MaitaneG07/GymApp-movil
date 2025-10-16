@@ -1,5 +1,5 @@
 pluginManagement {
-    repositories {
+repositories {
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -18,6 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 
 rootProject.name = "GymApp"
 include(":app")

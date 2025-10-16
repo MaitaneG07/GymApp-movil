@@ -24,5 +24,12 @@ class MainLogin : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        findViewById<Button>(R.id.btnLogin).setOnClickListener {
+            val intent = Intent(this, MainPerfilActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
     }
 }
