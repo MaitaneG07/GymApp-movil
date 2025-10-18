@@ -26,10 +26,18 @@
     <string name="textFecNac">Fecha\nNacimiento</string>
 
 
+    //Buttons
     <string name="buttonVolver">VOLVER</string>
     <string name="buttonRegistrar">REGISTRAR</string>
     <string name="buttonLogin">LOGIN</string>
     <string name="buttonRegistro">REGISTRATE!</string>
 
+    <string name="buttonPerfil">Perfil</string>
+    <string name="buttonEntrenador">Entrenador</string>
+    <string name="buttonFiltrar">Filtrar</string>
 
+    //Pantalla Workout
+    <string name="workoutText_title">WORKOUT</string>
+    <string name="workoutText_userLevel">NIVEL:</string>
+    <string name="workoutText_filtrar">Filtrar nivel:</string>
 </resources>

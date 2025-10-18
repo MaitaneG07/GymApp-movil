@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp">
         <activity
+            android:name=".WorkoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainPerfilActivity"
             android:exported="false" />
         <activity
