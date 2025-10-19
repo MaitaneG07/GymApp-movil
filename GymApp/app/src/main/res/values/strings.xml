@@ -40,4 +40,10 @@
     <string name="workoutText_title">WORKOUT</string>
     <string name="workoutText_userLevel">NIVEL:</string>
     <string name="workoutText_filtrar">Filtrar nivel:</string>
+    <string name="workoutText_nombre">Nombre:</string>
+    <string name="workoutText_nivel">Nivel:</string>
+    <string name="workoutText_tiempoTotal">T Total:</string>
+    <string name="workoutText_tiempoPrevisto">T Previsto:</string>
+    <string name="workoutText_fecha">Fecha:</string>
+    <string name="workoutText_completados">Completado:</string>
 </resources>
