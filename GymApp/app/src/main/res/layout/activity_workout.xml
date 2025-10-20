@@ -65,7 +65,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
-        android:id="@+id/textNivel"
+        android:id="@+id/textNivelWO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/workoutText_filtrar"
@@ -82,13 +82,13 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/buttonFiltrar"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFiltrarWO"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textNivel"
+        app:layout_constraintStart_toEndOf="@+id/textNivelWO"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
-        android:id="@+id/buttonFiltrar"
+        android:id="@+id/buttonFiltrarWO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
@@ -128,7 +128,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonVolverWO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
