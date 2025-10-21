@@ -14,11 +14,16 @@ class WorkoutActivity : AppCompatActivity() {
         setContentView(R.layout.activity_workout)
 
         val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
+        val botonVolver : Button = findViewById(R.id.buttonVolverWO)
 
         botonEntrenador.setOnClickListener {
             val intent = Intent(this, EntrenadorActivity::class.java)
             startActivity(intent)
         }
 
+        botonVolver.setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish()
+        }
     }
 }
