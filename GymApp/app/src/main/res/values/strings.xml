@@ -52,4 +52,5 @@
 
     //Pantalla Entrenador
     <string name="entrenadorText_title">ENTRENADOR</string>
+    <string name="entrenadorDescripcion">Descripcion:</string>
 </resources>
