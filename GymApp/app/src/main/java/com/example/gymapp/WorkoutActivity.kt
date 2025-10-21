@@ -22,7 +22,8 @@ class WorkoutActivity : AppCompatActivity() {
         }
 
         botonVolver.setOnClickListener {
-            setResult(RESULT_CANCELED)
+            val intent = Intent(this, MainLogin::class.java)
+            startActivity(intent)
             finish()
         }
     }
