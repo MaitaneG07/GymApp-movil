@@ -35,9 +35,9 @@ class WorkoutAdapter(private val workouts: List<Workout>) :
         holder.textFecha.text = workout.fecha
         holder.textPorcentaje.text = workout.porcentajeCompletado
 
-        // Acción para botón (opcional)
+        // Acción para el imageButton plar, reproducir un video
         holder.buttonPlay.setOnClickListener {
-            // Acción para "play" (puedes mostrar un Toast, por ejemplo)
+
         }
     }
 
