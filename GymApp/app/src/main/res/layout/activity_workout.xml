@@ -57,6 +57,7 @@
         app:layout_constraintGuide_begin="163dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWorkout"
         android:layout_width="359dp"
         android:layout_height="208dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"

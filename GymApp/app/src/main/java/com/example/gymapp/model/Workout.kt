@@ -1,11 +1,11 @@
 package com.example.gymapp.model
 
 data class Workout(
-    var nombre : String,
-    var nivel : String,
-    var tiempoTotal : String,
-    var tiempoPrevisto : String,
-    var fecha : String,
-    var completado : String,
-    var video : String
+    //datos para probar
+    val nombre: String,
+    val nivel: String,
+    val tiempoTotal: String,
+    val tiempoPrevisto: String,
+    val fecha: String,
+    val porcentajeCompletado: String
 )

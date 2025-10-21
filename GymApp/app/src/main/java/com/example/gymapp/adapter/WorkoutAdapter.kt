@@ -1,41 +1,45 @@
-package com.example.gymapp.adapter
-
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
-import com.example.gymapp.model.Workout
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
+import com.example.gymapp.model.Workout
 
-class WorkoutAdapter (
-    context: Context?,
-    resource: Int,
-    objects: List<Workout>?
-): ArrayAdapter<Workout>(context!!, resource, objects!!){
+class WorkoutAdapter(private val workouts: List<Workout>) :
+    RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
-    override fun getView (position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.item_workout, parent, false)
-
-        val imageButton = view.findViewById(R.id.imageButton) as ImageButton
-        val nombre = view.findViewById(R.id.textViewMostrarNombre) as TextView
-        val nivel = view.findViewById(R.id.textViewMostrarNivel) as TextView
-        val tiempoTotal = view.findViewById(R.id.textViewMostrarTiempoTotal) as TextView
-        val tiempoPrevisto = view.findViewById(R.id.textViewMostrarTiempoPrevisto) as TextView
-        val fecha = view.findViewById(R.id.textViewMostrarFecha) as TextView
-        val porcentaje = view.findViewById(R.id.textViewMostrarPorcentaje) as TextView
-
-        getItem(position)?.let {
-            nombre.text = it.nombre
-            nivel.text = it.nivel
-            tiempoTotal.text = it.tiempoTotal
-            tiempoPrevisto.text = it.tiempoPrevisto
-            fecha.text = it.fecha
-            porcentaje.text = it.completado
-        }
-        return view
+    class WorkoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val buttonPlay: ImageButton = view.findViewById(R.id.imageButton)
+        val textNombre: TextView = view.findViewById(R.id.textViewMostrarNombre)
+        val textNivel: TextView = view.findViewById(R.id.textViewMostrarNivel)
+        val textTiempoTotal: TextView = view.findViewById(R.id.textViewMostrarTiempoTotal)
+        val textTiempoPrevisto: TextView = view.findViewById(R.id.textViewMostrarTiempoPrevisto)
+        val textFecha: TextView = view.findViewById(R.id.textViewMostrarFecha)
+        val textPorcentaje: TextView = view.findViewById(R.id.textViewMostrarPorcentaje)
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_workout, parent, false)
+        return WorkoutViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
+        val workout = workouts[position]
+        holder.textNombre.text = workout.nombre
+        holder.textNivel.text = workout.nivel
+        holder.textTiempoTotal.text = workout.tiempoTotal
+        holder.textTiempoPrevisto.text = workout.tiempoPrevisto
+        holder.textFecha.text = workout.fecha
+        holder.textPorcentaje.text = workout.porcentajeCompletado
+
+        // Acción para botón (opcional)
+        holder.buttonPlay.setOnClickListener {
+            // Acción para "play" (puedes mostrar un Toast, por ejemplo)
+        }
+    }
+
+    override fun getItemCount(): Int = workouts.size
 }
