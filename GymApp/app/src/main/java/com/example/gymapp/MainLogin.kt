@@ -26,7 +26,7 @@ class MainLogin : BaseActivity() {
         }
 
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
-            val intent = Intent(this, MainPerfilActivity::class.java)
+            val intent = Intent(this, WorkoutActivity::class.java)
             startActivity(intent)
             finish()
 
