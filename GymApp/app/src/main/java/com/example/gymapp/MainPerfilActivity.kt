@@ -25,7 +25,7 @@ class MainPerfilActivity : BaseActivity() {
 
         val botonVolver: Button = findViewById(R.id.buttonVolver2)
         botonVolver.setOnClickListener {
-            val intent = Intent(this, MainLogin::class.java)
+            val intent = Intent(this, WorkoutActivity::class.java)
             startActivity(intent)
             finish()
         }

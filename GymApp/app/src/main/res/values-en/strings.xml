@@ -15,6 +15,7 @@
     <string name="inputPassword">Enter password</string>
 
     <string name="textUsuario">Username</string>
+    <string name="textPerfil">PERFIL</string>
     <string name="textPassword">Password</string>
     <string name="textNombre">Name</string>
     <string name="textApellido1">Surname 1</string>
@@ -26,5 +27,27 @@
     <string name="buttonRegistrar">REGISTER</string>
     <string name="buttonLogin">LOGIN</string>
     <string name="buttonRegistro">SIGN UP!</string>
+
+    <string name="buttonPerfil">Profile</string>
+    <string name="buttonEntrenador">Trainer</string>
+    <string name="buttonFiltrar">Filter</string>
+    <string name="buttonAnnadir">Add</string>
+    <string name="buttonModificar">Modify</string>
+    <string name="buttonEliminar">Delete</string>
+
+    //Workout Screen
+    <string name="workoutText_title">WORKOUT</string>
+    <string name="workoutText_userLevel">LEVEL:</string>
+    <string name="workoutText_filtrar">Filter level:</string>
+    <string name="workoutText_nombre">Name:</string>
+    <string name="workoutText_nivel">Level:</string>
+    <string name="workoutText_tiempoTotal">Total T:</string>
+    <string name="workoutText_tiempoPrevisto">Expected T:</string>
+    <string name="workoutText_fecha">Date:</string>
+    <string name="workoutText_completados">Completed:</string>
+
+    //Trainer Screen
+    <string name="entrenadorText_title">TRAINER</string>
+    <string name="entrenadorDescripcion">Description:</string>
 
 </resources>
