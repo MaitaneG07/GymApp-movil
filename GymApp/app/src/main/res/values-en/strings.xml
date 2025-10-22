@@ -11,7 +11,7 @@
     <string name="inputApellido2">Enter second surname</string>
     <string name="inputMail">Enter valid email</string>
     <string name="inputFecNac">Enter date of birth</string>
-    <string name="inputUsuario">Enter a username</string>
+    <string name="inputUsuario">Enter email</string>
     <string name="inputPassword">Enter password</string>
 
     <string name="textUsuario">Username</string>

@@ -13,7 +13,7 @@
     <string name="inputApellido2">Introduce segundo apellido</string>
     <string name="inputMail">Introduce email valido</string>
     <string name="inputFecNac">Introduce Fecha de nacimiento</string>
-    <string name="inputUsuario">Introduce un usuario</string>
+    <string name="inputUsuario">Introduce email</string>
     <string name="inputPassword">Introduce contraseña</string>
 
 

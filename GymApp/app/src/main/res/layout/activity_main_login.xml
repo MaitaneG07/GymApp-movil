@@ -8,7 +8,7 @@
     tools:context=".MainLogin">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText"
+        android:id="@+id/InputContrasenya"
         android:layout_width="237dp"
         android:layout_height="32dp"
         android:hint="@string/inputPassword"
@@ -82,6 +82,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/InputEmail"
         android:layout_width="237dp"
         android:layout_height="32dp"
         android:background="@null"
