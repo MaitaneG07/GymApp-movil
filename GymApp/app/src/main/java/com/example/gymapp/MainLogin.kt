@@ -49,32 +49,60 @@ class MainLogin : BaseActivity() {
         }
 
     }
-
+    /**
+     * Función que gestiona el inicio de sesión del usuario.
+     *
+     * - Valida que los campos de email y contraseña no estén vacíos.
+     * - Realiza una consulta en Firestore para verificar las credenciales.
+     * - Si son correctas, muestra un mensaje de bienvenida y abre la actividad principal.
+     * - Si son incorrectas o hay un error, muestra un mensaje de advertencia.
+     *
+     * Requiere:
+     * - Una colección "GymEloiteBD" > documento "gym_01" > subcolección "Clientes".
+     * - Documentos con campos "email" y "password".
+     */
     private fun iniciarSesion() {
 
+        //Obtiene el texto introducido por el usuario en los campos de email y contraseña.
+        // Usa .trim() para eliminar espacios en blanco al principio y al final.
         val email = Usuario.text.toString().trim()
         val password = Password.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty()) {
+
+        //Verifica si alguno de los campos está vacío o contiene solo espacios.
+        //Si es así, muestra un mensaje de advertencia y detiene la ejecución de la función.
+        if (email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        db.collection("GymElorrietaBD")
+
+        //Accede a la base de datos Firestore.
+        //Navega por la estructura: colección "GymEloiteBD" → documento "gym_01" → subcolección "Clientes"
+        db.collection("GymElorrietaBD") // Asegúrate de que el nombre sea correcto
             .document("gym_01")
-            .collection("Clientes")// Usa "Clientes" según tu Firebase
+            .collection("Clientes")
+
+            //Realiza una consulta filtrada: busca documentos donde el campo email coincida con el valor introducido, y el campo password también.
+            //Ejecuta la consulta con .get() para obtener los resultados.
             .whereEqualTo("email", email)
             .whereEqualTo("password", password)
             .get()
             .addOnSuccessListener { documents ->
-                if (!documents.isEmpty) {
-                    val cliente = documents.documents[0].toObject(Cliente::class.java)
+                //Toma el primer documento encontrado (si existe) y lo convierte
+                // en un objeto de tipo Cliente usando el mapeo automático de Firestore.
+                val cliente = documents.documents.firstOrNull()?.toObject(Cliente::class.java)
 
-                    Toast.makeText(this, "Bienvenido ${cliente?.nombre}", Toast.LENGTH_SHORT).show()
+                if (cliente != null) {
 
-                    val intent = Intent(this, WorkoutActivity::class.java)
-                    intent.putExtra("cliente", cliente)  // Pasar el objeto completo
-                    startActivity(intent)
+                    //Crea un Intent para abrir la pantalla WorkoutActivity.
+                    //Le pasa el objeto cliente como extra para que esté disponible en la siguiente actividad.
+                    //Llama a finish() para cerrar la pantalla actual y evitar que el usuario vuelva atrás con el botón de retroceso.
+                    Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, WorkoutActivity::class.java).apply {
+                        // enviar el objeto cliente a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
+                        putExtra("cliente", cliente)
+                    })
                     finish()
                 } else {
                     Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
@@ -83,6 +111,9 @@ class MainLogin : BaseActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+
+
     }
 }
+
 

@@ -9,7 +9,7 @@ import java.util.Objects
         var nombre: String = "",
         var apellido1: String = "",
         var apellido2: String = "",
-        var fechaNacimiento: String = "",
+        var fecha_nacimiento: String = "",
         var email: String = "",
         var password: String = ""
     ) : Serializable {
