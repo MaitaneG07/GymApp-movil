@@ -50,9 +50,9 @@ class WorkoutActivity : AppCompatActivity() {
         adapter = WorkoutAdapter(workoutList)
         recyclerView.adapter = adapter
 
-        loadWorkoutsFromFirestore()
+        cargarWorkoutsFirebase()
     }
-    private fun loadWorkoutsFromFirestore() {
+    private fun cargarWorkoutsFirebase() {
 
         workoutList.clear()
 
