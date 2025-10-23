@@ -3,23 +3,31 @@ package com.example.gymapp
 import WorkoutAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.model.Workout
+import com.example.gymapp.Firebase.Workout
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
 
 class WorkoutActivity : AppCompatActivity() {
 
     //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
+    private val workoutList = mutableListOf<com.example.gymapp.Firebase.Workout>()
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
+        db = FirebaseFirestore.getInstance()
         setContentView(R.layout.activity_workout)
 
         val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
@@ -36,17 +44,37 @@ class WorkoutActivity : AppCompatActivity() {
             finish()
         }
 
-        //codigo para probar el adapter
         recyclerView = findViewById(R.id.recyclerViewWorkout)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val workoutsPrueba = listOf(
-            Workout("Piernas día 1", "Principiante", "45 min", "60 min", "2023-10-01", "100%"),
-            Workout("Espalda + Bíceps", "Intermedio", "40 min", "50 min", "2023-10-10", "80%"),
-            Workout("HIIT fullbody", "Avanzado", "30 min", "30 min", "2023-10-18", "90%")
-        )
-
-        adapter = WorkoutAdapter(workoutsPrueba)
+        adapter = WorkoutAdapter(workoutList)
         recyclerView.adapter = adapter
+
+        loadWorkoutsFromFirestore()
     }
+    private fun loadWorkoutsFromFirestore() {
+
+        workoutList.clear()
+
+        db.collection("GymElorrietaBD")
+            .document("gym_01")
+            .collection("Workouts")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (doc in documents) {
+                    Log.d("Firestore", "Documento id: ${doc.id} - datos: ${doc.data}")
+                    val workout = doc.toObject(Workout::class.java)
+                    workout.id = doc.id
+
+                    workoutList.add(workout)
+                }
+                Log.d("WorkoutActivity", "Workouts cargados: ${workoutList.size}")
+                Toast.makeText(this, "Workouts cargados: ${workoutList.size}", Toast.LENGTH_SHORT).show()
+                adapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error al cargar workouts: $exception", Toast.LENGTH_LONG).show()
+            }
+    }
+
 }
