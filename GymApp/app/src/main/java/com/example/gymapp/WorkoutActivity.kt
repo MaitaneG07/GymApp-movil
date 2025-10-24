@@ -22,7 +22,7 @@ class WorkoutActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
 
-    private val workoutList = mutableListOf<Workout>()
+    private val workoutList = mutableListOf<com.example.gymapp.Firebase.Workout>()
     private lateinit var db: FirebaseFirestore
 
 
@@ -80,7 +80,6 @@ class WorkoutActivity : BaseActivity() {
 
 
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun cargarWorkoutsFirebase() {
 
         workoutList.clear()
