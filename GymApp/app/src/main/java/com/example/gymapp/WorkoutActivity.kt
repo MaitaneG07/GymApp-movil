@@ -16,7 +16,7 @@ import com.example.gymapp.Firebase.Workout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
-class WorkoutActivity : AppCompatActivity() {
+class WorkoutActivity : BaseActivity() {
 
     //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
@@ -32,6 +32,15 @@ class WorkoutActivity : AppCompatActivity() {
 
         val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
         val botonVolver : Button = findViewById(R.id.buttonVolverWO)
+
+
+
+        findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
+            val intent = Intent(this, MainPerfilActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
 
         botonEntrenador.setOnClickListener {
             val intent = Intent(this, EntrenadorActivity::class.java)

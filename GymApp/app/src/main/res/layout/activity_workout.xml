@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="100dp"
-        android:layout_height="97dp"
+        android:layout_width="133dp"
+        android:layout_height="130dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,8 +90,8 @@
 
     <Button
         android:id="@+id/buttonFiltrarWO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="86dp"
+        android:layout_height="45dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/buttonFiltrar"
         android:textColor="@color/black"
@@ -103,8 +103,8 @@
 
     <Button
         android:id="@+id/buttonEntrenador"
-        android:layout_width="128dp"
-        android:layout_height="37dp"
+        android:layout_width="129dp"
+        android:layout_height="46dp"
         android:backgroundTint="#4CAF50"
         android:gravity="center"
         android:text="@string/buttonEntrenador"
@@ -113,12 +113,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonPerfil"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.488" />
 
     <Button
         android:id="@+id/buttonPerfil"
-        android:layout_width="128dp"
-        android:layout_height="37dp"
+        android:layout_width="132dp"
+        android:layout_height="44dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/buttonPerfil"
         android:textColor="@color/black"
@@ -126,19 +127,21 @@
         app:layout_constraintEnd_toStartOf="@+id/buttonEntrenador"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.51" />
 
     <Button
         android:id="@+id/buttonVolverWO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="43dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/buttonVolver"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintVertical_bias="0.436" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

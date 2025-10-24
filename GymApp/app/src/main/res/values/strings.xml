@@ -13,11 +13,12 @@
     <string name="inputApellido2">Introduce segundo apellido</string>
     <string name="inputMail">Introduce email valido</string>
     <string name="inputFecNac">Introduce Fecha de nacimiento</string>
-    <string name="inputUsuario">Introduce un usuario</string>
+    <string name="inputUsuario">Introduce email</string>
     <string name="inputPassword">Introduce contraseña</string>
 
 
     <string name="textUsuario">Usuario</string>
+    <string name="textPerfil">PERFIL</string>
     <string name="textPassword">Password</string>
     <string name="textNombre">Nombre</string>
     <string name="textApellido1">Apellido 1</string>

@@ -159,6 +159,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/InputemailRegistro"
         android:layout_width="272dp"
         android:layout_height="40dp"
         android:background="@null"
@@ -237,6 +238,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/InputPassword"
         android:layout_width="272dp"
         android:layout_height="42dp"
         android:background="@null"

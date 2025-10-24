@@ -8,7 +8,7 @@
     tools:context=".MainLogin">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText"
+        android:id="@+id/InputContrasenya"
         android:layout_width="237dp"
         android:layout_height="32dp"
         android:hint="@string/inputPassword"
@@ -82,17 +82,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/InputEmail"
         android:layout_width="237dp"
         android:layout_height="32dp"
-        android:hint="@string/inputUsuario"
         android:background="@null"
+        android:hint="@string/inputUsuario"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.562"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck,TextContrastCheck" />
 
     <Button
         android:id="@+id/btnRegistrate"

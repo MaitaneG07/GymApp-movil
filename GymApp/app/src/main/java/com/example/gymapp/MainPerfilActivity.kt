@@ -1,15 +1,18 @@
 package com.example.gymapp
 
-import android.graphics.Color
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainPerfilActivity : AppCompatActivity() {
+class MainPerfilActivity : BaseActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,37 +23,60 @@ class MainPerfilActivity : AppCompatActivity() {
             insets
         }
 
-        val imageButtonTheme: ImageButton = findViewById(R.id.imageButtonTheme)
-        val rootLayout = findViewById<ConstraintLayout>(R.id.main)
-
-
-        var modoDiurno = true
-
-        imageButtonTheme.setOnClickListener {
-
-
-            if (!modoDiurno) {
-
-
-                imageButtonTheme.setImageResource(R.drawable.soleado)
-                rootLayout.setBackgroundColor(Color.BLACK) // Fondo negro
-
-
-
-
-            } else {
-
-
-                imageButtonTheme.setImageResource(R.drawable.luna)
-                rootLayout.setBackgroundColor(Color.WHITE) // Fondo blanco (o el que tengas
-
-
-
-            }
-
-            modoDiurno = !modoDiurno
+        val botonVolver: Button = findViewById(R.id.buttonVolver2)
+        botonVolver.setOnClickListener {
+            val intent = Intent(this, WorkoutActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
+        // ===== TEMA OSCURO/CLARO =====
+        val imageButtonTheme: ImageButton = findViewById(R.id.imageButtonTheme)
+        var isDarkMode = sharedPref.getBoolean("dark_mode", false)
+        actualizarIconoTema(imageButtonTheme, isDarkMode)
+
+        imageButtonTheme.setOnClickListener {
+            isDarkMode = !isDarkMode
+            with(sharedPref.edit()) {
+                putBoolean("dark_mode", isDarkMode)
+                apply()
+            }
+
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
+            actualizarIconoTema(imageButtonTheme, isDarkMode)
+        }
+
+        // ===== CAMBIO DE IDIOMA =====
+        val imageButtonIdioma: ImageButton = findViewById(R.id.imageButtonIdioma)
+        var currentLanguage = sharedPref.getString("app_language", "es") ?: "es"
+
+        imageButtonIdioma.setOnClickListener {
+            // Alternar entre español e inglés
+            currentLanguage = if (currentLanguage == "es") "en" else "es"
+
+            // Guardar preferencia
+            with(sharedPref.edit()) {
+                putString("app_language", currentLanguage)
+                apply()
+            }
+
+            // Reiniciar activity para aplicar cambios
+            recreate()
+        }
     }
+
+    private fun actualizarIconoTema(button: ImageButton, isDarkMode: Boolean) {
+        if (isDarkMode) {
+            button.setImageResource(R.drawable.soleado)
+        } else {
+            button.setImageResource(R.drawable.luna)
+        }
     }
+}
