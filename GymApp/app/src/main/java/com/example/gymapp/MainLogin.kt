@@ -17,8 +17,9 @@ import com.google.firebase.ktx.Firebase
 class MainLogin : BaseActivity() {
 
     private lateinit var db: FirebaseFirestore
-    private lateinit var Usuario: EditText
-    private lateinit var Password: EditText
+    private lateinit var usuario: EditText
+    private lateinit var password: EditText
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,8 @@ class MainLogin : BaseActivity() {
         db = Firebase.firestore
 
         // Inicializar las vistas
-        Usuario = findViewById(R.id.InputEmail)
-        Password = findViewById(R.id.InputContrasenya)
+        usuario = findViewById(R.id.InputEmail)
+        password = findViewById(R.id.InputContrasenya)
 
 
         findViewById<Button>(R.id.btnRegistrate).setOnClickListener {
@@ -65,8 +66,8 @@ class MainLogin : BaseActivity() {
 
         //Obtiene el texto introducido por el usuario en los campos de email y contraseña.
         // Usa .trim() para eliminar espacios en blanco al principio y al final.
-        val email = Usuario.text.toString().trim()
-        val password = Password.text.toString().trim()
+        val email = usuario.text.toString().trim()
+        val password = password.text.toString().trim()
 
 
         //Verifica si alguno de los campos está vacío o contiene solo espacios.
@@ -93,14 +94,22 @@ class MainLogin : BaseActivity() {
                 // en un objeto de tipo Cliente usando el mapeo automático de Firestore.
                 val cliente = documents.documents.firstOrNull()?.toObject(Cliente::class.java)
 
-                if (cliente != null) {
+                if (cliente != null ) {
+
+                    val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putString("user_email", email)
+                        putString("user_password", password)
+                        apply()
+                    }
+
 
                     //Crea un Intent para abrir la pantalla WorkoutActivity.
                     //Le pasa el objeto cliente como extra para que esté disponible en la siguiente actividad.
                     //Llama a finish() para cerrar la pantalla actual y evitar que el usuario vuelva atrás con el botón de retroceso.
                     Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, WorkoutActivity::class.java).apply {
-                        // enviar el objeto cliente a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
+                        // enviar el objeto cliente/id a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
                         putExtra("cliente", cliente)
                     })
                     finish()

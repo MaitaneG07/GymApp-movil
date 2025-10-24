@@ -16,9 +16,8 @@
 
             <LinearLayout
                 android:id="@+id/layoutTextos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
+                android:layout_width="379dp"
+                android:layout_height="146dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,21 +99,6 @@
                     android:paddingEnd="4dp"
                     android:textSize="12sp"
                     tools:ignore="HardcodedText,TextContrastCheck" />
-
-                <TextView
-                    android:id="@+id/editTextUsuario"
-                    android:layout_width="380dp"
-                    android:layout_height="33dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@null"
-                    android:ellipsize="end"
-                    android:hint="Usuario"
-                    android:maxLines="1"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-
-                    android:textSize="12sp"
-                    tools:ignore="HardcodedText,TextContrastCheck,VisualLintBounds" />
 
 
             </LinearLayout>

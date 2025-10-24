@@ -1,4 +1,4 @@
-package com.example.gymapp.Firebase
+package com.example.gymapp.model.entity
 
 data class Entrenador(
     var id: String = "",
