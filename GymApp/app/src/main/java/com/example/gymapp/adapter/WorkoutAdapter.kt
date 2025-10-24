@@ -34,9 +34,9 @@ class WorkoutAdapter(private val workouts: List<Workout>) :
 
         holder.textNombre.text = workout.nombre
         holder.textFecha.text = workout.fechaInicio
+        holder.textNivel.text = workout.nivel
 
         // En estos pongo N/A porque de momento no se como sacarlos
-        holder.textNivel.text = workout.nivel
         holder.textTiempoTotal.text = "N/A"
         holder.textTiempoPrevisto.text = "N/A"
 
