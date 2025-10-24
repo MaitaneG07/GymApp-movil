@@ -1,6 +1,5 @@
 package com.example.gymapp
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +7,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import java.util.Locale
 
 
+@Suppress("DEPRECATION")
 open class BaseActivity : AppCompatActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
 
             // Cargar y aplicar el tema guardado
-            val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+            val sharedPref = getSharedPreferences("AppSettings", MODE_PRIVATE)
             val isDarkMode = sharedPref.getBoolean("dark_mode", false)
 
             if (isDarkMode) {

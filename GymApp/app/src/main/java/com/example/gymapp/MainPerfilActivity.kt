@@ -1,7 +1,6 @@
 package com.example.gymapp
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainPerfilActivity : BaseActivity() {
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "UseKtx")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,7 +29,7 @@ class MainPerfilActivity : BaseActivity() {
             finish()
         }
 
-        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("AppSettings", MODE_PRIVATE)
 
         // ===== TEMA OSCURO/CLARO =====
         val imageButtonTheme: ImageButton = findViewById(R.id.imageButtonTheme)
