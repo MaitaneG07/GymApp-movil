@@ -11,6 +11,7 @@ import java.util.Objects
         var apellido2: String = "",
         var fecha_nacimiento: String = "",
         var email: String = "",
+        var nivel: String ="",
         var password: String = ""
     ) : Serializable {
 

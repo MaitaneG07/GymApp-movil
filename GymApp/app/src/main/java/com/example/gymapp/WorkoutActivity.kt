@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.Firebase.Workout
+import com.example.gymapp.model.entity.Cliente
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -21,19 +23,30 @@ class WorkoutActivity : BaseActivity() {
     //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
+
     private val workoutList = mutableListOf<com.example.gymapp.Firebase.Workout>()
     private lateinit var db: FirebaseFirestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         FirebaseApp.initializeApp(this)
+
         db = FirebaseFirestore.getInstance()
+
         setContentView(R.layout.activity_workout)
+
 
         val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
         val botonVolver : Button = findViewById(R.id.buttonVolverWO)
+        val cliente = intent.getSerializableExtra("cliente") as? Cliente
 
-
+        if (cliente != null) {
+            Log.d("WorkoutActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}")
+            Toast.makeText(this, "Nivel recibido: ${cliente.nivel}", Toast.LENGTH_SHORT).show()
+            findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
+        }
 
         findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
             val intent = Intent(this, MainPerfilActivity::class.java)
@@ -59,8 +72,16 @@ class WorkoutActivity : BaseActivity() {
         adapter = WorkoutAdapter(workoutList)
         recyclerView.adapter = adapter
 
+
+
         cargarWorkoutsFirebase()
+
+
     }
+
+
+
+
     private fun cargarWorkoutsFirebase() {
 
         workoutList.clear()
