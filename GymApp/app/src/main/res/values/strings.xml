@@ -1,0 +1,57 @@
+<resources>
+
+
+    <string name="app_name">FITAPP</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="remember">Recordar tu usuario</string>
+
+
+    <string name="registrar">Hazte socio!</string>
+    <string name="inputNombre">Introduce tu nombre</string>
+    <string name="inputApellido1">Introduce primer apellido</string>
+    <string name="inputApellido2">Introduce segundo apellido</string>
+    <string name="inputMail">Introduce email valido</string>
+    <string name="inputFecNac">Introduce Fecha de nacimiento</string>
+    <string name="inputUsuario">Introduce email</string>
+    <string name="inputPassword">Introduce contraseña</string>
+
+
+    <string name="textUsuario">Usuario</string>
+    <string name="textPerfil">PERFIL</string>
+    <string name="textPassword">Password</string>
+    <string name="textNombre">Nombre</string>
+    <string name="textApellido1">Apellido 1</string>
+    <string name="textApellido2">Apellido 2</string>
+    <string name="textMail">Email</string>
+    <string name="textFecNac">Fecha\nNacimiento</string>
+
+
+    //Buttons
+    <string name="buttonVolver">VOLVER</string>
+    <string name="buttonRegistrar">REGISTRAR</string>
+    <string name="buttonLogin">LOGIN</string>
+    <string name="buttonRegistro">REGISTRATE!</string>
+
+    <string name="buttonPerfil">Perfil</string>
+    <string name="buttonEntrenador">Entrenador</string>
+    <string name="buttonFiltrar">Filtrar</string>
+    <string name="buttonAnnadir">Añadir</string>
+    <string name="buttonModificar">Modificar</string>
+    <string name="buttonEliminar">Eliminar</string>
+
+    //Pantalla Workout
+    <string name="workoutText_title">WORKOUT</string>
+    <string name="workoutText_userLevel">NIVEL:</string>
+    <string name="workoutText_filtrar">Filtrar nivel:</string>
+    <string name="workoutText_nombre">Nombre:</string>
+    <string name="workoutText_nivel">Nivel:</string>
+    <string name="workoutText_tiempoTotal">T Total:</string>
+    <string name="workoutText_tiempoPrevisto">T Previsto:</string>
+    <string name="workoutText_fecha">Fecha:</string>
+    <string name="workoutText_completados">Completado:</string>
+
+    //Pantalla Entrenador
+    <string name="entrenadorText_title">ENTRENADOR</string>
+    <string name="entrenadorDescripcion">Descripcion:</string>
+</resources>

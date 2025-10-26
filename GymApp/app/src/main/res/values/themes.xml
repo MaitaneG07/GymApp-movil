@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.GymApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colores para modo claro -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.GymApp" parent="Base.Theme.GymApp" />
+</resources>
