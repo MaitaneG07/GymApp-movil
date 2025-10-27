@@ -10,8 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.Firebase.Workout
 import com.example.gymapp.model.entity.Cliente
+import com.example.gymapp.model.entity.Workout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -46,12 +46,16 @@ class WorkoutActivity : BaseActivity() {
             findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
         }
 
-        findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
-            val intent = Intent(this, MainPerfilActivity::class.java)
+            findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
+                val intent = Intent(this, MainPerfilActivity::class.java)
 
-            finish()
-
-        }
+                // Si quieres pasar el cliente a la actividad de perfil:
+                if (cliente != null) {
+                    intent.putExtra("cliente", cliente)
+                }
+                startActivity(intent)
+                finish()
+            }
 
         botonEntrenador.setOnClickListener {
             val intent = Intent(this, EntrenadorActivity::class.java)

@@ -7,8 +7,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.Firebase.Workout
+
 import com.example.gymapp.R
+import com.example.gymapp.model.entity.Workout
 
 class WorkoutAdapter(private val workouts: List<Workout>) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
