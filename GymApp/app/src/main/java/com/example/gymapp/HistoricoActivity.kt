@@ -1,6 +1,6 @@
 package com.example.gymapp
 
-import WorkoutAdapter
+import HistoricoAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -10,19 +10,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.Firebase.Workout
 import com.example.gymapp.model.entity.Cliente
+import com.example.gymapp.model.entity.Historico
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Suppress("DEPRECATION")
-class WorkoutActivity : BaseActivity() {
+class HistoricoActivity : BaseActivity() {
 
     //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: WorkoutAdapter
+    private lateinit var adapter: HistoricoAdapter
 
-    private val workoutList = mutableListOf<com.example.gymapp.Firebase.Workout>()
+    private val historicoList = mutableListOf<Historico>()
     private lateinit var db: FirebaseFirestore
 
 
@@ -33,7 +33,7 @@ class WorkoutActivity : BaseActivity() {
 
         db = FirebaseFirestore.getInstance()
 
-        setContentView(R.layout.activity_workout)
+        setContentView(R.layout.activity_historico)
 
 
         val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
@@ -41,7 +41,7 @@ class WorkoutActivity : BaseActivity() {
         val cliente = intent.getSerializableExtra("cliente") as? Cliente
 
         if (cliente != null) {
-            Log.d("WorkoutActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}")
+            Log.d("WorkoutActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}")
             Toast.makeText(this, "Nivel recibido: ${cliente.nivel}", Toast.LENGTH_SHORT).show()
             findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
         }
@@ -67,37 +67,34 @@ class WorkoutActivity : BaseActivity() {
         recyclerView = findViewById(R.id.recyclerViewWorkout)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = WorkoutAdapter(workoutList)
+        adapter = HistoricoAdapter(historicoList)
         recyclerView.adapter = adapter
 
-
-
-        cargarWorkoutsFirebase()
-
+        cargarWorkoutsFirebase(cliente!!.id)
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun cargarWorkoutsFirebase(id: String) {
 
-
-
-    private fun cargarWorkoutsFirebase() {
-
-        workoutList.clear()
+        historicoList.clear()
 
         db.collection("GymElorrietaBD")
             .document("gym_01")
-            .collection("Workouts")
+            .collection("Clientes")
+            .document(id)
+            .collection("Historico")
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
                     Log.d("Firestore", "Documento id: ${doc.id} - datos: ${doc.data}")
-                    val workout = doc.toObject(Workout::class.java)
-                    workout.id = doc.id
+                    val historico = doc.toObject(Historico::class.java)
+                    historico.id = doc.id
 
-                    workoutList.add(workout)
+                    historicoList.add(historico)
                 }
-                Log.d("WorkoutActivity", "Workouts cargados: ${workoutList.size}")
-                Toast.makeText(this, "Workouts cargados: ${workoutList.size}", Toast.LENGTH_SHORT).show()
+                Log.d("HistoricoActivity", "Historicos cargados: ${historicoList.size}")
+                Toast.makeText(this, "Historicos cargados: ${historicoList.size}", Toast.LENGTH_SHORT).show()
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
