@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.Firebase.Workout
+import com.example.gymapp.model.entity.Workout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -21,7 +21,7 @@ class WorkoutActivity : BaseActivity() {
     //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
-    private val workoutList = mutableListOf<com.example.gymapp.Firebase.Workout>()
+    private val workoutList = mutableListOf<com.example.gymapp.model.entity.Workout>()
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,10 +7,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.Firebase.Workout
 import com.example.gymapp.R
 
-class WorkoutAdapter(private val workouts: List<Workout>) :
+class WorkoutAdapter(private val workouts: List<com.example.gymapp.model.entity.Workout>) :
     RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
     class WorkoutViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,14 +33,14 @@ class WorkoutAdapter(private val workouts: List<Workout>) :
 
         holder.textNombre.text = workout.nombre
         holder.textFecha.text = workout.fechaInicio
-        holder.textNivel.text = workout.nivel
+        holder.textNivel.text = "N/A"
 
         // En estos pongo N/A porque de momento no se como sacarlos
         holder.textTiempoTotal.text = "N/A"
         holder.textTiempoPrevisto.text = "N/A"
 
-        val totalEjercicios = workout.ejercicios.size
-        val completados = workout.ejercicios.count { it.completado }
+        val totalEjercicios = workout.ejercicio.size
+        val completados = workout.ejercicio.count { it.completado }
         val porcentaje = if (totalEjercicios > 0) (completados * 100) / totalEjercicios else 0
         holder.textPorcentaje.text = "$porcentaje%"
 
