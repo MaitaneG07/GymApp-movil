@@ -9,33 +9,18 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextFecha"
-        android:background="@null"
-        android:layout_width="216dp"
+        android:layout_width="247dp"
         android:layout_height="41dp"
+        android:background="@null"
         android:hint="@string/textFecNac"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.829"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872"
+        app:layout_constraintVertical_bias="0.802"
         tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="272dp"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:hint="@string/textMail"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.812"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.792"
-        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck,TouchTargetSizeCheck,TextContrastCheck" />
 
     <com.google.android.material.textfield.TextInputEditText
 
@@ -98,10 +83,10 @@
         android:text="@string/textMail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.435" />
 
     <TextView
         android:id="@+id/tvFecha"
@@ -110,10 +95,10 @@
         android:text="@string/textFecNac"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.859" />
+        app:layout_constraintVertical_bias="0.797" />
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -172,19 +157,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.429"
         tools:ignore="MissingConstraints,TextContrastCheck,TouchTargetSizeCheck,VisualLintOverlap" />
-
-    <TextView
-        android:id="@+id/tvUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textUsuario"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436"
-        tools:ignore="VisualLintOverlap" />
 
     <Button
         android:id="@+id/buttonVolver"
