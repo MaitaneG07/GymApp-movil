@@ -17,7 +17,7 @@
             android:name=".EntrenadorActivity"
             android:exported="false" />
         <activity
-            android:name=".WorkoutActivity"
+            android:name=".HistoricoActivity"
             android:exported="false" />
         <activity
             android:name=".MainPerfilActivity"

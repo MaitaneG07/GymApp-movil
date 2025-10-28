@@ -102,7 +102,7 @@ class MainLogin : BaseActivity() {
                     //Le pasa el objeto cliente como extra para que esté disponible en la siguiente actividad.
                     //Llama a finish() para cerrar la pantalla actual y evitar que el usuario vuelva atrás con el botón de retroceso.
                     Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, WorkoutActivity::class.java).apply {
+                    startActivity(Intent(this, HistoricoActivity::class.java).apply {
                         // enviar el objeto cliente/id a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
                         putExtra("cliente", cliente)
                     })

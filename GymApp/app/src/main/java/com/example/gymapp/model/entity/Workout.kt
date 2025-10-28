@@ -4,16 +4,13 @@ import java.io.Serializable
 
 data class Workout (
 
-    val id:String="",
+    var id:String="",
     val nombre:String="",
-    val fechaInicio:String="",
     val video:String="",
     val completado:Boolean=false,
-    val ejercicio:List<Ejercicio>
-
-
-
-        ): Serializable {
+    val ejercicios:List<Ejercicio>,
+    val nivel : String
+): Serializable {
     companion object {
         private const val serialVersionUID: Long = 1L
     }
