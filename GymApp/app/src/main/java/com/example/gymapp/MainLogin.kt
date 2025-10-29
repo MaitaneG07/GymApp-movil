@@ -95,27 +95,77 @@ class MainLogin : BaseActivity() {
                 // en un objeto de tipo Cliente usando el mapeo automático de Firestore.
                 val cliente = documents.documents.firstOrNull()?.toObject(Cliente::class.java)
 
-                if (cliente != null ) {
+                //Accede a la base de datos Firestore.
+                //Navega por la estructura: colección "GymEloiteBD" → documento "gym_01" → subcolección "Entrenadores" y devuelve un objeto
+                db.collection("GymElorrietaBD")
+                    .document("gym_01")
+                    .collection("Entrenadores")
+                    .whereEqualTo("email", email)
+                    .whereEqualTo("password", password)
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        val entrenador =
+                            documents.documents.firstOrNull()?.toObject(Cliente::class.java)
 
+                        when {
+                            cliente != null -> {
+                                val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+                                sharedPref.edit {
+                                    putString("user_email", email)
+                                    putString("user_password", password)
+                                    putString("user_role", "cliente")
+                                }
+                                //Crea un Intent para abrir la pantalla WorkoutActivity.
+                                //Le pasa el objeto cliente como extra para que esté disponible en la siguiente actividad.
+                                //Llama a finish() para cerrar la pantalla actual y evitar que el usuario vuelva atrás con el botón de retroceso.
+                                Toast.makeText(
+                                    this,
+                                    "Bienvenido ${cliente.nombre}",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                startActivity(Intent(this, HistoricoActivity::class.java).apply {
+                                    // enviar el objeto cliente/id a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
+                                    putExtra("cliente", cliente)
+                                })
+                                finish()
+                            }
 
-                    //Crea un Intent para abrir la pantalla WorkoutActivity.
-                    //Le pasa el objeto cliente como extra para que esté disponible en la siguiente actividad.
-                    //Llama a finish() para cerrar la pantalla actual y evitar que el usuario vuelva atrás con el botón de retroceso.
-                    Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, HistoricoActivity::class.java).apply {
-                        // enviar el objeto cliente/id a la siguiente actividad, y lo voy a etiquetar con la clave "cliente".”
-                        putExtra("cliente", cliente)
-                    })
-                    finish()
-                } else {
-                    Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
-                }
+                                entrenador != null -> {
+                                    val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+                                    sharedPref.edit {
+                                        putString("user_email", email)
+                                        putString("user_password", password)
+                                        putString("user_role", "entrenador")
+                                    }
+
+                                    Toast.makeText(
+                                        this,
+                                        "Bienvenido ${entrenador.nombre}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(
+                                        Intent(
+                                            this,
+                                            MainPerfilActivity::class.java
+                                        ).apply {
+                                            putExtra("entrenador", entrenador)
+                                        })
+                                    finish()
+                                }
+
+                            else -> {
+                                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error al buscar entrenador: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al buscar cliente: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
-
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.gymapp.model.entity
 
+
 import java.io.Serializable
 
 data class Workout (

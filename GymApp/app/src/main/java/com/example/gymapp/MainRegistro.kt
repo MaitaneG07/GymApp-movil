@@ -19,7 +19,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.util.UUID
+
 
 class MainRegistro : BaseActivity() {
 
@@ -65,7 +65,7 @@ class MainRegistro : BaseActivity() {
         email = findViewById(R.id.InputemailRegistro)
         password = findViewById(R.id.InputPassword)
         btnRegistrar = findViewById(R.id.btnRegistrar)
-        spinner = findViewById(R.id.spinner)
+        spinner = findViewById(R.id.spinnerCli_entre)
 
         // 🔹 Inicializar Spinner
         val spinner = findViewById<Spinner>(R.id.spinnerCli_entre)

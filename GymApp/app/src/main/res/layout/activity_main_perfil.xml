@@ -8,6 +8,18 @@
     android:layout_height="match_parent"
     tools:context=".MainPerfilActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPerfil"
+        android:layout_width="243dp"
+        android:layout_height="401dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.951" />
+
     <Button
         android:id="@+id/buttonVolver2"
         android:layout_width="104dp"
@@ -34,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.521"
+        app:layout_constraintVertical_bias="0.54"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -47,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598"
+        app:layout_constraintVertical_bias="0.613"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -60,7 +72,7 @@
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668"
+        app:layout_constraintVertical_bias="0.691"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -73,20 +85,7 @@
         app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.745"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textViewUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textUsuario"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814"
+        app:layout_constraintVertical_bias="0.791"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -131,16 +130,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.879" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="239dp"
-        android:layout_height="288dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.808"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
 
     <ImageButton
         android:id="@+id/imageButtonTheme"
