@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.model.entity.Cliente
-import com.example.gymapp.model.entity.Historico
+import com.example.gymapp.model.entity.Workout
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,7 +23,7 @@ class HistoricoActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HistoricoAdapter
 
-    private val historicoList = mutableListOf<Historico>()
+    private val workoutList = mutableListOf<Workout>()
     private lateinit var db: FirebaseFirestore
 
 
@@ -45,9 +45,18 @@ class HistoricoActivity : BaseActivity() {
             findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
         }
 
+            findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
+                val intent = Intent(this, MainPerfilActivity::class.java)
 
         // En tu Activity o Fragment
         val menuButton = findViewById<ImageButton>(R.id.imageViewPerfil)
+                // Si quieres pasar el cliente a la actividad de perfil:
+                if (cliente != null) {
+                    intent.putExtra("cliente", cliente)
+                }
+                startActivity(intent)
+                finish()
+            }
 
         menuButton.setOnClickListener { view ->
             // Crear el PopupMenu
@@ -100,6 +109,12 @@ class HistoricoActivity : BaseActivity() {
     private fun cargarHistoricosFirebase(id: String) {
 
         historicoList.clear()
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun cargarWorkoutsFirebase() {
+
+        workoutList.clear()
 
         db.collection("GymElorrietaBD")
             .document("gym_01")
