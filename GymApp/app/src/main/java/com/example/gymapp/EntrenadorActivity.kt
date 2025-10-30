@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +33,8 @@ class EntrenadorActivity : BaseActivity() {
     private var workoutSeleccionado: Workout? = null
 
     private val workoutsList = mutableListOf<Workout>()
+
+    private lateinit var spinner: Spinner
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,9 +91,36 @@ class EntrenadorActivity : BaseActivity() {
         // Cargar workouts
         cargarWorkoutsFirebase(entrenador.id)
 
+
         val editTextNombre: EditText = findViewById(R.id.etNuevoNombre)
         val editTextNivel: EditText = findViewById(R.id.etNuevoNivel)
         val editTextVideo: EditText = findViewById(R.id.etNuevoVideo)
+
+
+
+        //Cargar spinner
+        spinner = findViewById(R.id.spinnerNivel)
+
+        val niveles = listOf("Todos", "Principiante", "Intermedio", "Avanzado")
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, niveles)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = spinnerAdapter
+
+        // 🔹 Listener del spinner
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val nivelSeleccionado = niveles[position]
+                filtrarWorkouts(nivelSeleccionado)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
 
         findViewById<Button>(R.id.buttonAñadir).setOnClickListener {
             val nombre = editTextNombre.text.toString().trim()
@@ -161,6 +194,18 @@ class EntrenadorActivity : BaseActivity() {
             }
         }
     }
+    private fun filtrarWorkouts(nivel: String) {
+        val filtrados = if (nivel == "Todos") {
+            allWorkoutsList
+        } else {
+            allWorkoutsList.filter { it.nivel.equals(nivel, ignoreCase = true) }
+        }
+
+        workoutsList.clear()
+        workoutsList.addAll(filtrados)
+        adapter.notifyDataSetChanged()
+    }
+
 
     private fun modificarWorkout(workout: Workout) {
         lifecycleScope.launch {
@@ -202,9 +247,14 @@ class EntrenadorActivity : BaseActivity() {
                 val workouts = FirebaseManager.obtenerWorkouts()
                 workoutsList.addAll(workouts)
 
+                // 🔹 Guarda una copia completa para el filtro
+                allWorkoutsList.clear()
+                allWorkoutsList.addAll(workouts)
+
                 adapter.notifyDataSetChanged()
             } catch (e: Exception) {
-                Toast.makeText(this@EntrenadorActivity,
+                Toast.makeText(
+                    this@EntrenadorActivity,
                     "Error: ${e.message}",
                     Toast.LENGTH_LONG
                 ).show()

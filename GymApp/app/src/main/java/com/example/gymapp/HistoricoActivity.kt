@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -41,7 +40,10 @@ class HistoricoActivity : BaseActivity() {
         val cliente: Cliente? = intent.getSerializableExtra("cliente") as? Cliente
 
         if (cliente != null) {
-            Log.d("HistoricoActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}")
+            Log.d(
+                "HistoricoActivity",
+                "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}"
+            )
             Toast.makeText(this, "Nivel recibido: ${cliente.nivel}", Toast.LENGTH_SHORT).show()
             findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
         }
@@ -63,11 +65,13 @@ class HistoricoActivity : BaseActivity() {
                         accederPerfil(cliente)
                         true
                     }
+
                     R.id.menu_cerrar_sesion -> {
                         // Código para cerrar sesión
                         cerrarSesion()
                         true
                     }
+
                     else -> false
                 }
             }
@@ -118,12 +122,16 @@ class HistoricoActivity : BaseActivity() {
                     historicoList.add(historico)
                 }
                 Log.d("HistoricoActivity", "Historicos cargados: ${historicoList.size}")
-                Toast.makeText(this, "Historicos cargados: ${historicoList.size}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Historicos cargados: ${historicoList.size}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error al cargar historicos: $exception", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error al cargar historicos: $exception", Toast.LENGTH_LONG)
+                    .show()
             }
     }
-
 }

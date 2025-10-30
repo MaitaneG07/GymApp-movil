@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.adapter.PerfilAdapter
 import com.example.gymapp.model.entity.Cliente
+import com.example.gymapp.model.entity.Entrenador
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -41,6 +43,7 @@ class MainPerfilActivity : BaseActivity() {
         // Inicializar Firebase
         db = Firebase.firestore
 
+
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerViewPerfil)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -51,9 +54,7 @@ class MainPerfilActivity : BaseActivity() {
         cargarDatosCliente()
 
 
-        ////// HAY QUE RECIBIR EL ID Y SI ES ENTRENADOR VA A UNA PAGINA Y SINO A OTRA
-        val botonVolver: Button = findViewById(R.id.buttonVolver2)
-        botonVolver.setOnClickListener {
+        findViewById<Button>(R.id.buttonVolver2).setOnClickListener {
             val intent = Intent(this, HistoricoActivity::class.java)
             startActivity(intent)
             finish()
@@ -100,6 +101,7 @@ class MainPerfilActivity : BaseActivity() {
             recreate()
         }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     private fun cargarDatosCliente() {
