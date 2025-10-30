@@ -7,39 +7,43 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
 import com.example.gymapp.model.entity.Cliente
+import com.example.gymapp.model.entity.Entrenador
 
-class PerfilAdapter(private val clientes: List<Cliente>) :
-    RecyclerView.Adapter<PerfilAdapter.ClienteViewHolder>() {
+class PerfilAdapter<T : Any>(private val usuario: T) :
+    RecyclerView.Adapter<PerfilAdapter<T>.UsuarioViewHolder>() {
 
-    class ClienteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewNombre: TextView = itemView.findViewById(R.id.editTextNombre)
-
-        val textViewApellido1: TextView = itemView.findViewById(R.id.editTextApellido1)
-
-        val textViewApellido2: TextView = itemView.findViewById(R.id.editTextApellido2)
-
-        val textViewFecha: TextView = itemView.findViewById(R.id.editTextFechaNacimiento)
-        val textViewEmail: TextView = itemView.findViewById(R.id.editTextEmail)
-
-
+    inner class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvNombre: TextView = itemView.findViewById(R.id.editTextNombre)
+        val tvApellido1: TextView = itemView.findViewById(R.id.editTextApellido1)
+        val tvApellido2: TextView = itemView.findViewById(R.id.editTextApellido2)
+        val tvFecha: TextView = itemView.findViewById(R.id.editTextFechaNacimiento)
+        val tvEmail: TextView = itemView.findViewById(R.id.editTextEmail)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClienteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_perfil, parent, false)
-        return ClienteViewHolder(view)
+        return UsuarioViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ClienteViewHolder, position: Int) {
-        val cliente = clientes[position]
-
-        holder.textViewNombre.text = cliente.nombre
-        holder.textViewApellido1.text=cliente.apellido1
-        holder.textViewApellido2.text=cliente.apellido2
-        holder.textViewFecha.text = cliente.fecha_nacimiento
-        holder.textViewEmail.text = cliente.email
-
+    override fun onBindViewHolder(holder: UsuarioViewHolder, position: Int) {
+        when (usuario) {
+            is Cliente -> {
+                holder.tvNombre.text = usuario.nombre
+                holder.tvApellido1.text = usuario.apellido1
+                holder.tvApellido2.text = usuario.apellido2
+                holder.tvFecha.text = usuario.fechaNacimiento
+                holder.tvEmail.text = usuario.email
+            }
+            is Entrenador -> {
+                holder.tvNombre.text = usuario.nombre
+                holder.tvApellido1.text = usuario.apellido1
+                holder.tvApellido2.text = usuario.apellido2
+                holder.tvFecha.text = usuario.fechaNacimiento
+                holder.tvEmail.text = usuario.email
+            }
+        }
     }
 
-    override fun getItemCount(): Int = clientes.size
+    override fun getItemCount(): Int = 1
 }

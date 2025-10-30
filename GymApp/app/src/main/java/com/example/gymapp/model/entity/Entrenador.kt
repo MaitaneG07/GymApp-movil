@@ -5,7 +5,8 @@ import java.io.Serializable
 data class Entrenador(
     var id: String = "",
     var nombre: String = "",
-    var apellido: String = "",
+    var apellido1: String = "",
+    var apellido2: String = "",
     var email: String = "",
     var fechaNacimiento: String = "",
     var password: String = ""

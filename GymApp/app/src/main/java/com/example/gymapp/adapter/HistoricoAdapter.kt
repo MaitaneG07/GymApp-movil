@@ -1,30 +1,27 @@
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
 import com.example.gymapp.model.entity.Historico
-import androidx.core.net.toUri
 
 class HistoricoAdapter(private val historicos: List<Historico>) :
     RecyclerView.Adapter<HistoricoAdapter.HistoricoViewHolder>() {
 
-    class HistoricoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val buttonPlay: ImageButton = view.findViewById(R.id.imageButton)
-        val textNombre: TextView = view.findViewById(R.id.textViewMostrarNombre)
-        val textNivel: TextView = view.findViewById(R.id.textViewMostrarNivel)
-        val textTiempoTotal: TextView = view.findViewById(R.id.textViewMostrarTiempoTotal)
-        val textTiempoPrevisto: TextView = view.findViewById(R.id.textViewMostrarTiempoPrevisto)
-        val textFecha: TextView = view.findViewById(R.id.textViewMostrarFecha)
-        val textPorcentaje: TextView = view.findViewById(R.id.textViewMostrarPorcentaje)
+    class HistoricoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textNombre: TextView = itemView.findViewById(R.id.textViewNombre)
+        val textNivel: TextView = itemView.findViewById(R.id.textViewNivel)
+        val textTiempoTotal: TextView = itemView.findViewById(R.id.textViewTiempoTotal)
+        val textTiempoPrevisto: TextView = itemView.findViewById(R.id.textViewTiempoPrevisto)
+        val textFecha: TextView = itemView.findViewById(R.id.textViewFecha)
+        val textPorcentaje: TextView = itemView.findViewById(R.id.textViewPorcentaje)
+        val textVideo: TextView = itemView.findViewById(R.id.textViewVideo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoricoViewHolder {
@@ -37,43 +34,31 @@ class HistoricoAdapter(private val historicos: List<Historico>) :
     override fun onBindViewHolder(holder: HistoricoViewHolder, position: Int) {
         val historico = historicos[position]
 
-        // LOGS DE DEBUG - Agregar estos
-        Log.d(TAG, "=== Item $position ===")
-        Log.d(TAG, "Nombre: ${historico.nombre}")
-        Log.d(TAG, "Fecha: ${historico.fechaInicio}")
-        Log.d(TAG, "Nivel: ${historico.nivel}")
-        Log.d(TAG, "Tiempo Total: ${historico.tiempoTotal}")
-        Log.d(TAG, "Tiempo Previsto: ${historico.tiempoPrevisto}")
-        Log.d(TAG, "Porcentaje: ${historico.porcentaje}")
-        Log.d(TAG, "Video: ${historico.video}")
-
+        // Mostrar los datos en los TextViews
         holder.textNombre.text = historico.nombre
-        holder.textFecha.text = historico.fechaInicio
         holder.textNivel.text = historico.nivel
         holder.textTiempoTotal.text = historico.tiempoTotal
         holder.textTiempoPrevisto.text = historico.tiempoPrevisto
         holder.textFecha.text = historico.fechaInicio
-        holder.textPorcentaje.text = historico.porcentaje
+        holder.textPorcentaje.text = historico.porcentaje as CharSequence?
+        holder.textVideo.text = historico.video
 
-//        val totalEjercicios = historicos.size
-//        val completados = historicos.count { it.completado == true }
-//        val porcentaje = if (totalEjercicios > 0) (completados * 100) / totalEjercicios else 0
-
-        holder.buttonPlay.setOnClickListener {
-            val direccionVideo = historico.video
-            if (direccionVideo!!.isNotEmpty()) {
+        // Permitir abrir el video con una pulsación larga
+        holder.textVideo.setOnLongClickListener {
+            val url = historico.video?.trim()
+            if (!url.isNullOrEmpty()) {
                 try {
-                    //busca todas las apps que puedan manejar ese tipo de URI (la url web)
-                    // y abre la que el movil tenga  predeterminada
-                    val intent = Intent(Intent.ACTION_VIEW, direccionVideo.toUri())
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE)
+                    val finalUrl = if (url.startsWith("http")) url else "https://$url"
+                    val intent = Intent(Intent.ACTION_VIEW, finalUrl.toUri())
                     holder.itemView.context.startActivity(intent)
                 } catch (e: Exception) {
-                    Toast.makeText(holder.itemView.context, "No es posible reproducir el video", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(holder.itemView.context, "Error al abrir el video", Toast.LENGTH_SHORT).show()
+                    Log.e("HistoricoAdapter", "Error al abrir URL: ${e.message}")
                 }
             } else {
-                Toast.makeText(holder.itemView.context, "El Workout no tiene ningún video", Toast.LENGTH_SHORT).show()
+                Toast.makeText(holder.itemView.context, "No hay URL válida", Toast.LENGTH_SHORT).show()
             }
+            true
         }
     }
 

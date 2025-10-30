@@ -9,13 +9,13 @@ data class Historico (
     var nombre : String? = null,
     var nivel : String? = null,
 
-    @PropertyName("tiempo_total")
+    @get:PropertyName("tiempo_total") @set:PropertyName("tiempo_total")
     var tiempoTotal: String? = null,
 
-    @PropertyName("tiempo_previsto")
+    @get:PropertyName("tiempo_previsto") @set:PropertyName("tiempo_previsto")
     var tiempoPrevisto: String? = null,
 
-    @PropertyName("fecha_inicio")
+    @get:PropertyName("fecha_inicio") @set:PropertyName("fecha_inicio")
     var fechaInicio : String? = null,
     var porcentaje : String? = null,
     var video : String? = null

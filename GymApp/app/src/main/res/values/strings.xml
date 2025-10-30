@@ -54,6 +54,7 @@
     <string name="icono_modificar" translatable="false">✏️</string>
     <string name="icono_eliminar" translatable="false">🗑️</string>
     <string name="icono_guardar" translatable="false">✓</string>
+    <string name="separacion" translatable="false">--</string>
 
     //Pantalla Entrenador
     <string name="entrenadorText_title">ENTRENADOR</string>
@@ -64,4 +65,5 @@
     <string name="sentadillas" translatable="false">Sentadillas</string>
     <string name="_3x" translatable="false">3x</string>
     <string name="ejercicios" translatable="false">Ejercicios</string>
+
 </resources>

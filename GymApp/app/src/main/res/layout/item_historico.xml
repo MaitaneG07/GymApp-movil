@@ -1,153 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_play" />
-
-    <TextView
-        android:id="@+id/textViewNombre"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/workoutText_nombre"
-        app:layout_constraintBottom_toTopOf="@+id/textViewNivel"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarNombre"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textViewMostrarNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMostrarNivel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewNombre"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/textViewNombreTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_nombre"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewNivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_nivel"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarNivel"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
+        <TextView
+            android:id="@+id/textViewNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewNombreTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewNombreTitulo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0" />
 
-    <TextView
-        android:id="@+id/textViewMostrarNivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewNivel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMostrarNombre" />
+        <!-- Nivel -->
+        <TextView
+            android:id="@+id/textViewNivelTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_nivel"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewNombreTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textViewTiempoTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_tiempoTotal"
-        app:layout_constraintBottom_toTopOf="@+id/textViewFecha"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarTiempoTotal"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        <TextView
+            android:id="@+id/textViewNivel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewNivelTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewNivelTitulo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0" />
 
-    <TextView
-        android:id="@+id/textViewMostrarTiempoTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMostrarFecha"
-        app:layout_constraintEnd_toStartOf="@+id/textViewTiempoPrevisto"
-        app:layout_constraintStart_toEndOf="@+id/textViewTiempoTotal"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        <!-- Tiempo Total -->
+        <TextView
+            android:id="@+id/textViewTiempoTotalTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_tiempoTotal"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewNivelTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textViewTiempoPrevisto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_tiempoPrevisto"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPorcentaje"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarTiempoPrevisto"
-        app:layout_constraintStart_toEndOf="@+id/textViewMostrarTiempoTotal"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        <TextView
+            android:id="@+id/textViewTiempoTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewTiempoTotalTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewTiempoTotalTitulo"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewMostrarTiempoPrevisto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMostrarPorcentaje"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewTiempoPrevisto"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        <!-- Tiempo Previsto -->
+        <TextView
+            android:id="@+id/textViewTiempoPrevistoTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_tiempoPrevisto"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewTiempoTotalTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textViewFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_fecha"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarFecha"
-        app:layout_constraintStart_toStartOf="@+id/guideline6" />
+        <TextView
+            android:id="@+id/textViewTiempoPrevisto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewTiempoPrevistoTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewTiempoPrevistoTitulo"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewMostrarFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPorcentaje"
-        app:layout_constraintStart_toEndOf="@+id/textViewFecha"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMostrarTiempoTotal" />
+        <!-- Fecha -->
+        <TextView
+            android:id="@+id/textViewFechaTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_fecha"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewTiempoPrevistoTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
 
-    <TextView
-        android:id="@+id/textViewPorcentaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_completados"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewMostrarPorcentaje"
-        app:layout_constraintStart_toEndOf="@+id/textViewMostrarFecha"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTiempoPrevisto" />
+        <TextView
+            android:id="@+id/textViewFecha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewFechaTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewFechaTitulo"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewMostrarPorcentaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewPorcentaje"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMostrarTiempoPrevisto" />
+        <!-- Porcentaje -->
+        <TextView
+            android:id="@+id/textViewPorcentajeTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workoutText_completados"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewFechaTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="76dp" />
+        <TextView
+            android:id="@+id/textViewPorcentaje"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewPorcentajeTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewPorcentajeTitulo"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="36dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Video -->
+        <TextView
+            android:id="@+id/textViewVideoTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/video_url"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/textViewPorcentajeTitulo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewVideo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/separacion"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/textViewVideoTitulo"
+            app:layout_constraintTop_toTopOf="@id/textViewVideoTitulo"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
