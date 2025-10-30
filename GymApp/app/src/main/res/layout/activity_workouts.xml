@@ -22,18 +22,6 @@
         app:layout_constraintVertical_bias="0.026" />
 
     <TextView
-        android:id="@+id/mostrarLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewLevel"
-        app:layout_constraintStart_toEndOf="@+id/textViewLevel"
-        app:layout_constraintTop_toTopOf="@+id/textViewLevel"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
         android:id="@+id/textNivelWO"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,18 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153" />
-
-    <TextView
-        android:id="@+id/textViewLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/workoutText_userLevel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
 
     <TextView
         android:id="@+id/textViewWorkout"
@@ -86,9 +62,109 @@
 
     <Spinner
         android:id="@+id/spinnerNivel"
-        android:layout_width="95dp"
-        android:layout_height="19dp"
-        tools:layout_editor_absoluteX="289dp"
-        tools:layout_editor_absoluteY="109dp" />
+        android:layout_width="115dp"
+        android:layout_height="21dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.153" />
+
+    <TextView
+        android:id="@+id/tvNuevoNombre"
+        android:layout_width="111dp"
+        android:layout_height="22dp"
+        android:text="@string/workoutText_nombre"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.686" />
+
+    <TextView
+        android:id="@+id/tvNuevoNivel"
+        android:layout_width="111dp"
+        android:layout_height="22dp"
+        android:text="@string/workoutText_nivel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.753" />
+
+    <TextView
+        android:id="@+id/tvNuevoVideo"
+        android:layout_width="111dp"
+        android:layout_height="22dp"
+        android:text="@string/video_url"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvNuevoNivel" />
+
+    <EditText
+        android:id="@+id/etNuevoNombre"
+        android:layout_width="203dp"
+        android:layout_height="24dp"
+        android:background="@null"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.687" />
+
+    <EditText
+        android:id="@+id/etNuevoNivel"
+        android:layout_width="203dp"
+        android:layout_height="24dp"
+        android:background="@null"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
+
+    <EditText
+        android:id="@+id/etNuevoVideo"
+        android:layout_width="203dp"
+        android:layout_height="24dp"
+        android:background="@null"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.716"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.823" />
+
+    <Button
+        android:id="@+id/buttonAñadir"
+        android:layout_width="148dp"
+        android:layout_height="39dp"
+        android:text="@string/buttonAnnadir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -12,7 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.model.entity.Cliente
-import com.example.gymapp.model.entity.Workout
+import com.example.gymapp.model.entity.Historico
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,11 +24,11 @@ class HistoricoActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HistoricoAdapter
 
-    private val workoutList = mutableListOf<Workout>()
+    private val historicoList = mutableListOf<Historico>()
     private lateinit var db: FirebaseFirestore
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,26 +38,17 @@ class HistoricoActivity : BaseActivity() {
 
         setContentView(R.layout.activity_historico)
 
-        val cliente = intent.getSerializableExtra("cliente") as? Cliente
+        val cliente: Cliente? = intent.getSerializableExtra("cliente") as? Cliente
 
         if (cliente != null) {
-            Log.d("WorkoutActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}")
+            Log.d("HistoricoActivity", "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}")
             Toast.makeText(this, "Nivel recibido: ${cliente.nivel}", Toast.LENGTH_SHORT).show()
             findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
         }
 
-            findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
-                val intent = Intent(this, MainPerfilActivity::class.java)
-
         // En tu Activity o Fragment
         val menuButton = findViewById<ImageButton>(R.id.imageViewPerfil)
-                // Si quieres pasar el cliente a la actividad de perfil:
-                if (cliente != null) {
-                    intent.putExtra("cliente", cliente)
-                }
-                startActivity(intent)
-                finish()
-            }
+
 
         menuButton.setOnClickListener { view ->
             // Crear el PopupMenu
@@ -68,7 +60,7 @@ class HistoricoActivity : BaseActivity() {
                 when (menuItem.itemId) {
                     R.id.menu_acceder_perfil -> {
                         // Código para acceder al perfil
-                        accederPerfil()
+                        accederPerfil(cliente)
                         true
                     }
                     R.id.menu_cerrar_sesion -> {
@@ -99,22 +91,17 @@ class HistoricoActivity : BaseActivity() {
         finish()
     }
 
-    private fun accederPerfil() {
+    private fun accederPerfil(cliente: Cliente?) {
         val intent = Intent(this, MainPerfilActivity::class.java)
+        // Si quieres pasar el cliente a la actividad de perfil
+        intent.putExtra("cliente", cliente)
         startActivity(intent)
         finish()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun cargarHistoricosFirebase(id: String) {
-
         historicoList.clear()
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun cargarWorkoutsFirebase() {
-
-        workoutList.clear()
 
         db.collection("GymElorrietaBD")
             .document("gym_01")

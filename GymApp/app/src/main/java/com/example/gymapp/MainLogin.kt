@@ -6,9 +6,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.gymapp.model.entity.Cliente
+import com.example.gymapp.model.entity.Entrenador
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -105,7 +107,7 @@ class MainLogin : BaseActivity() {
                     .get()
                     .addOnSuccessListener { documents ->
                         val entrenador =
-                            documents.documents.firstOrNull()?.toObject(Cliente::class.java)
+                            documents.documents.firstOrNull()?.toObject(Entrenador::class.java)
 
                         when {
                             cliente != null -> {
@@ -147,7 +149,7 @@ class MainLogin : BaseActivity() {
                                     startActivity(
                                         Intent(
                                             this,
-                                            MainPerfilActivity::class.java
+                                            EntrenadorActivity::class.java
                                         ).apply {
                                             putExtra("entrenador", entrenador)
                                         })

@@ -9,7 +9,6 @@ data class Ejercicio (
      val descripcion: String? = null,
      val completado: Boolean = false,
      val series: MutableList<Serie?>? = null,
-     val workout: Workout? = null
     ) : Serializable
     {
         companion object {

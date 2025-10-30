@@ -38,6 +38,7 @@
     <string name="buttonFiltrar">Filtrar</string>
     <string name="buttonAnnadir">Añadir</string>
     <string name="buttonModificar">Modificar</string>
+    <string name="video_url" translatable="false">Video URL:</string>
     <string name="buttonEliminar">Eliminar</string>
 
     //Pantalla historico
@@ -52,6 +53,7 @@
     <string name="workoutText_completados">Completado:</string>
     <string name="icono_modificar" translatable="false">✏️</string>
     <string name="icono_eliminar" translatable="false">🗑️</string>
+    <string name="icono_guardar" translatable="false">✓</string>
 
     //Pantalla Entrenador
     <string name="entrenadorText_title">ENTRENADOR</string>
@@ -59,4 +61,7 @@
     <string name="men_de_opciones" translatable="false">Menú de opciones</string>
     <string name="cerrar_sesion" translatable="false">Cerrar sesión</string>
     <string name="acceder_perfil" translatable="false">Acceder al perfil</string>
+    <string name="sentadillas" translatable="false">Sentadillas</string>
+    <string name="_3x" translatable="false">3x</string>
+    <string name="ejercicios" translatable="false">Ejercicios</string>
 </resources>

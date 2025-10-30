@@ -50,6 +50,8 @@ class MainPerfilActivity : BaseActivity() {
         // Cargar datos del cliente
         cargarDatosCliente()
 
+
+        ////// HAY QUE RECIBIR EL ID Y SI ES ENTRENADOR VA A UNA PAGINA Y SINO A OTRA
         val botonVolver: Button = findViewById(R.id.buttonVolver2)
         botonVolver.setOnClickListener {
             val intent = Intent(this, HistoricoActivity::class.java)
