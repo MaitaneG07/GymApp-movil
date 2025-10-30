@@ -5,7 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +27,7 @@ class HistoricoActivity : BaseActivity() {
     private lateinit var db: FirebaseFirestore
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,9 +37,6 @@ class HistoricoActivity : BaseActivity() {
 
         setContentView(R.layout.activity_historico)
 
-
-        val botonEntrenador : Button = findViewById(R.id.buttonEntrenador)
-        val botonVolver : Button = findViewById(R.id.buttonVolverWO)
         val cliente = intent.getSerializableExtra("cliente") as? Cliente
 
         if (cliente != null) {
@@ -49,6 +48,8 @@ class HistoricoActivity : BaseActivity() {
             findViewById<Button>(R.id.buttonPerfil).setOnClickListener {
                 val intent = Intent(this, MainPerfilActivity::class.java)
 
+        // En tu Activity o Fragment
+        val menuButton = findViewById<ImageButton>(R.id.imageViewPerfil)
                 // Si quieres pasar el cliente a la actividad de perfil:
                 if (cliente != null) {
                     intent.putExtra("cliente", cliente)
@@ -57,29 +58,55 @@ class HistoricoActivity : BaseActivity() {
                 finish()
             }
 
-        botonEntrenador.setOnClickListener {
-            val intent = Intent(this, EntrenadorActivity::class.java)
-            startActivity(intent)
+        menuButton.setOnClickListener { view ->
+            // Crear el PopupMenu
+            val popupMenu = PopupMenu(this, view)
+            popupMenu.menuInflater.inflate(R.menu.perfil_menu, popupMenu.menu)
+
+            // Manejar los clicks en las opciones
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_acceder_perfil -> {
+                        // Código para acceder al perfil
+                        accederPerfil()
+                        true
+                    }
+                    R.id.menu_cerrar_sesion -> {
+                        // Código para cerrar sesión
+                        cerrarSesion()
+                        true
+                    }
+                    else -> false
+                }
+            }
+            // Mostrar el menú
+            popupMenu.show()
         }
 
-        botonVolver.setOnClickListener {
-            val intent = Intent(this, MainLogin::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        recyclerView = findViewById(R.id.recyclerViewWorkout)
+        recyclerView = findViewById(R.id.recyclerViewHistorico)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = HistoricoAdapter(historicoList)
         recyclerView.adapter = adapter
 
-        cargarWorkoutsFirebase(cliente!!.id)
+        cargarHistoricosFirebase(cliente!!.id)
 
     }
 
+    private fun cerrarSesion() {
+        val intent = Intent(this, MainLogin::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun accederPerfil() {
+        val intent = Intent(this, MainPerfilActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    private fun cargarWorkoutsFirebase(id: String) {
+    private fun cargarHistoricosFirebase(id: String) {
 
         historicoList.clear()
 
@@ -108,7 +135,7 @@ class HistoricoActivity : BaseActivity() {
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error al cargar workouts: $exception", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error al cargar historicos: $exception", Toast.LENGTH_LONG).show()
             }
     }
 

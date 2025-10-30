@@ -7,16 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".HistoricoActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/imageViewPerfil"
         android:layout_width="133dp"
         android:layout_height="130dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/logoapp"
+        android:contentDescription="@string/men_de_opciones"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logoapp"
-        tools:ignore="ContentDescription,MissingConstraints" />
+        app:layout_constraintVertical_bias="0.026" />
 
     <TextView
         android:id="@+id/textViewWorkout"
@@ -58,7 +61,7 @@
         app:layout_constraintGuide_begin="163dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewWorkout"
+        android:id="@+id/recyclerViewHistorico"
         android:layout_width="359dp"
         android:layout_height="208dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
