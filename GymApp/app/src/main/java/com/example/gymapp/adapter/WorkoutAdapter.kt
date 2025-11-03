@@ -143,15 +143,42 @@ class WorkoutAdapter(
 
     private fun habilitarEdicion(holder: ViewHolder, habilitar: Boolean) {
         val context = holder.itemView.context
-        val drawable = if (habilitar) android.R.drawable.edit_text else null
 
         listOf(holder.tvNombre, holder.tvNivel, holder.tvVideo).forEach { editText ->
             editText.apply {
                 isFocusable = habilitar
                 isFocusableInTouchMode = habilitar
                 isClickable = habilitar
-                drawable?.let { background = ContextCompat.getDrawable(context, it) }
+                isCursorVisible = habilitar
+
+                if (habilitar) {
+                    // Modo edición: mostrar fondo con borde
+                    setBackgroundResource(R.drawable.edittext_background)
+                    // Asegurar que el color del texto sea visible
+                    setTextColor(ContextCompat.getColor(context, android.R.color.black))
+                    // Mostrar hint si está vacío
+                    if (text.isEmpty()) {
+                        hint = "Escribe aquí..."
+                    }
+                } else {
+                    // Modo solo lectura: sin fondo
+                    background = null
+                    // Restaurar color del tema
+                    val typedValue = android.util.TypedValue()
+                    context.theme.resolveAttribute(
+                        com.google.android.material.R.attr.colorOnSurface,
+                        typedValue,
+                        true
+                    )
+                    setTextColor(typedValue.data)
+                    hint = null
+                }
             }
+        }
+
+        // Si se habilita edición, dar foco al primer campo
+        if (habilitar) {
+            holder.tvNombre.requestFocus()
         }
     }
 

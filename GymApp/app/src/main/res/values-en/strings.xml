@@ -34,6 +34,7 @@
     <string name="buttonAnnadir">Add</string>
     <string name="buttonModificar">Modify</string>
     <string name="buttonEliminar">Delete</string>
+    <string name="video_url">Video URL:</string>
 
     //Workout Screen
     <string name="workoutText_title">WORKOUT</string>
@@ -49,5 +50,11 @@
     //Trainer Screen
     <string name="entrenadorText_title">TRAINER</string>
     <string name="entrenadorDescripcion">Description:</string>
+    <string name="men_de_opciones">Options menu</string>
+    <string name="cerrar_sesion">Log out</string>
+    <string name="acceder_perfil">Access profile</string>
+    <string name="sentadillas">Squats</string>
+    <string name="_3x" translatable="false">3x</string>
+    <string name="ejercicios">Exercises</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
@@ -40,10 +41,43 @@ class MainPerfilActivity : BaseActivity() {
         recyclerView = findViewById(R.id.recyclerViewPerfil)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Obtener usuario logeado desde SharedPreferences
+        // ✅ PRIMERO: Intentar recibir usuario por Intent
+        val entrenadorIntent = intent.getSerializableExtra("entrenador") as? Entrenador
+        val clienteIntent = intent.getSerializableExtra("cliente") as? Cliente
+
+        if (entrenadorIntent != null) {
+            // Recibido entrenador por Intent
+            usuarioLogeado = entrenadorIntent
+            perfilAdapter = PerfilAdapter(entrenadorIntent)
+            recyclerView.adapter = perfilAdapter
+            configurarBotones("entrenador")
+        } else if (clienteIntent != null) {
+            // Recibido cliente por Intent
+            usuarioLogeado = clienteIntent
+            perfilAdapter = PerfilAdapter(clienteIntent)
+            recyclerView.adapter = perfilAdapter
+            configurarBotones("cliente")
+        } else {
+            // No viene por Intent, cargar desde SharedPreferences + Firestore
+            cargarDesdeSharedPreferences()
+        }
+
+        // Tema oscuro/idioma
+        configurarTemaEIdioma()
+    }
+
+    private fun cargarDesdeSharedPreferences() {
         val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-        val rol = sharedPref.getString("user_role", "cliente")
-        val id = sharedPref.getString("user_id", "") ?: ""
+        val rol = sharedPref.getString("user_role", "cliente") ?: "cliente"
+        val id = sharedPref.getString("user_id", null)
+
+        // ✅ Validar que el ID existe
+        if (id.isNullOrEmpty()) {
+            Toast.makeText(this, "Error: No se encontró el ID del usuario", Toast.LENGTH_SHORT)
+                .show()
+            finish()
+            return
+        }
 
         if (rol == "cliente") {
             db.collection("GymElorrietaBD")
@@ -57,7 +91,15 @@ class MainPerfilActivity : BaseActivity() {
                         usuarioLogeado = cliente
                         perfilAdapter = PerfilAdapter(cliente)
                         recyclerView.adapter = perfilAdapter
+                        configurarBotones("cliente")
+                    } else {
+                        Toast.makeText(this, "Cliente no encontrado", Toast.LENGTH_SHORT).show()
+                        finish()
                     }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
         } else if (rol == "entrenador") {
             db.collection("GymElorrietaBD")
@@ -71,10 +113,20 @@ class MainPerfilActivity : BaseActivity() {
                         usuarioLogeado = entrenador
                         perfilAdapter = PerfilAdapter(entrenador)
                         recyclerView.adapter = perfilAdapter
+                        configurarBotones("entrenador")
+                    } else {
+                        Toast.makeText(this, "Entrenador no encontrado", Toast.LENGTH_SHORT).show()
+                        finish()
                     }
                 }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
         }
+    }
 
+    private fun configurarBotones(rol: String) {
         // Botón volver
         val botonVolver: Button = findViewById(R.id.buttonVolver2)
         botonVolver.setOnClickListener {
@@ -88,8 +140,9 @@ class MainPerfilActivity : BaseActivity() {
             startActivity(intent)
             finish()
         }
+    }
 
-        // Tema oscuro/idioma (igual que antes)
+    private fun configurarTemaEIdioma() {
         val imageButtonTheme: ImageButton = findViewById(R.id.imageButtonTheme)
         var isDarkMode = getSharedPreferences("AppSettings", MODE_PRIVATE)
             .getBoolean("dark_mode", false)
