@@ -19,55 +19,50 @@ import com.google.firebase.firestore.FirebaseFirestore
 @Suppress("DEPRECATION")
 class HistoricoActivity : BaseActivity() {
 
-    //estos dos son para la prueba:
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HistoricoAdapter
-
     private val historicoList = mutableListOf<Historico>()
     private lateinit var db: FirebaseFirestore
 
+    private var cliente: Cliente? = null // Guardamos el cliente si viene por intent
 
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         FirebaseApp.initializeApp(this)
-
         db = FirebaseFirestore.getInstance()
 
         setContentView(R.layout.activity_historico)
 
-        val cliente: Cliente? = intent.getSerializableExtra("cliente") as? Cliente
+        // Intent: intentar recibir cliente
+        cliente = intent.getSerializableExtra("cliente") as? Cliente
 
-        if (cliente != null) {
-            Log.d(
-                "HistoricoActivity",
-                "Cliente recibido: ${cliente.nombre}, nivel: ${cliente.nivel}, id: ${cliente.id}"
-            )
-            Toast.makeText(this, "Nivel recibido: ${cliente.nivel}", Toast.LENGTH_SHORT).show()
-            findViewById<TextView>(R.id.mostrarLevel).text = cliente.nivel
+        // Si viene cliente por intent, mostramos su nivel
+        cliente?.let {
+            Log.d("HistoricoActivity", "Cliente recibido: ${it.nombre}, nivel: ${it.nivel}, id: ${it.id}")
+            findViewById<TextView>(R.id.mostrarLevel).text = it.nivel
         }
 
-        // En tu Activity o Fragment
+        // Configuración RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewHistorico)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = HistoricoAdapter(historicoList)
+        recyclerView.adapter = adapter
+
+        // Botón de menú de perfil
         val menuButton = findViewById<ImageButton>(R.id.imageViewPerfil)
-
-
         menuButton.setOnClickListener { view ->
-            // Crear el PopupMenu
             val popupMenu = PopupMenu(this, view)
             popupMenu.menuInflater.inflate(R.menu.perfil_menu, popupMenu.menu)
-
-            // Manejar los clicks en las opciones
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.menu_acceder_perfil -> {
-                        // Código para acceder al perfil
-                        accederPerfil(cliente)
+                        accederPerfil()
                         true
                     }
 
                     R.id.menu_cerrar_sesion -> {
-                        // Código para cerrar sesión
                         cerrarSesion()
                         true
                     }
@@ -75,18 +70,19 @@ class HistoricoActivity : BaseActivity() {
                     else -> false
                 }
             }
-            // Mostrar el menú
             popupMenu.show()
         }
 
-        recyclerView = findViewById(R.id.recyclerViewHistorico)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        // Cargar históricos: intent o SharedPreferences
+        val userId = cliente?.id ?: getSharedPreferences("UserSession", MODE_PRIVATE)
+            .getString("user_id", null)
 
-        adapter = HistoricoAdapter(historicoList)
-        recyclerView.adapter = adapter
-
-        cargarHistoricosFirebase(cliente!!.id)
-
+        if (userId != null) {
+            cargarHistoricosFirebase(userId)
+        } else {
+            Toast.makeText(this, "No se pudo obtener el id del usuario", Toast.LENGTH_SHORT).show()
+            Log.e("HistoricoActivity", "No hay cliente ni id en SharedPreferences")
+        }
     }
 
     private fun cerrarSesion() {
@@ -95,12 +91,11 @@ class HistoricoActivity : BaseActivity() {
         finish()
     }
 
-    private fun accederPerfil(cliente: Cliente?) {
+    private fun accederPerfil() {
         val intent = Intent(this, MainPerfilActivity::class.java)
-        // Si quieres pasar el cliente a la actividad de perfil
-        intent.putExtra("cliente", cliente)
+        // Pasamos el cliente si lo tenemos
+        cliente?.let { intent.putExtra("cliente", it) }
         startActivity(intent)
-        finish()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -115,10 +110,8 @@ class HistoricoActivity : BaseActivity() {
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
-                    Log.d("Firestore", "Documento id: ${doc.id} - datos: ${doc.data}")
                     val historico = doc.toObject(Historico::class.java)
                     historico.id = doc.id
-
                     historicoList.add(historico)
                 }
                 Log.d("HistoricoActivity", "Historicos cargados: ${historicoList.size}")

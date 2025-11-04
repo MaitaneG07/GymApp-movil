@@ -21,6 +21,9 @@ import com.example.gymapp.model.gestores.FirebaseManager
 import com.example.gymapp.model.entity.Entrenador
 import com.example.gymapp.model.entity.Workout
 import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,8 +32,10 @@ class EntrenadorActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
+    private val workoutsList = mutableListOf<Workout>()
+    private lateinit var db: FirebaseFirestore
 
-    private var workoutSeleccionado: Workout? = null
+    private var entrenador: Entrenador? = null
 
     private val workoutsList = mutableListOf<Workout>()
 
@@ -42,23 +47,47 @@ class EntrenadorActivity : BaseActivity() {
         setContentView(R.layout.activity_workouts)
 
         FirebaseApp.initializeApp(this)
+        db = Firebase.firestore
 
-        val entrenador = intent.getSerializableExtra("entrenador") as? Entrenador
+        // Intent: intentar recibir entrenador
+        entrenador = intent.getSerializableExtra("entrenador") as? Entrenador
 
         if (entrenador == null) {
-            Toast.makeText(this, "Error al cargar los datos del entrenador", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+            // Si no viene por Intent, cargar desde SharedPreferences + Firestore
+            val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+            val id = sharedPref.getString("user_id", null)
+            if (id != null) {
+                db.collection("GymElorrietaBD")
+                    .document("gym_01")
+                    .collection("Entrenadores")
+                    .document(id)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        entrenador = doc.toObject(Entrenador::class.java)
+                        if (entrenador == null) {
+                            Toast.makeText(this, "No se pudo cargar el entrenador", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            Log.d("EntrenadorActivity", "Entrenador cargado: ${entrenador?.nombre}")
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error al cargar el entrenador", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+            } else {
+                Toast.makeText(this, "No se encontró el entrenador", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        } else {
+            Log.d("EntrenadorActivity", "Entrenador recibido por Intent: ${entrenador?.nombre}")
         }
-
-        Log.d("WorkoutActivity", "Entrenador recibido: ${entrenador.nombre}, id: ${entrenador.id}")
 
         // Configurar menú de perfil
         val menuButton = findViewById<ImageButton>(R.id.imageViewPerfil)
         menuButton.setOnClickListener { view ->
             val popupMenu = PopupMenu(this, view)
             popupMenu.menuInflater.inflate(R.menu.perfil_menu, popupMenu.menu)
-
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.menu_acceder_perfil -> {
@@ -78,8 +107,6 @@ class EntrenadorActivity : BaseActivity() {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerViewWorkouts)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Crear adapter con lifecycleScope
         adapter = WorkoutAdapter(
             workouts = workoutsList,
             lifecycleScope = lifecycleScope,
@@ -88,8 +115,7 @@ class EntrenadorActivity : BaseActivity() {
         )
         recyclerView.adapter = adapter
 
-        // Cargar workouts
-        cargarWorkoutsFirebase(entrenador.id)
+        cargarWorkoutsFirebase()
 
 
         val editTextNombre: EditText = findViewById(R.id.etNuevoNombre)
@@ -137,29 +163,21 @@ class EntrenadorActivity : BaseActivity() {
 
             lifecycleScope.launch {
                 try {
-                    // Obtener el siguiente ID personalizado
                     val nuevoId = FirebaseManager.obtenerSiguienteIdWorkout()
-
-                    // Crear el Workout con ID personalizado
                     val nuevoWorkout = Workout(
                         id = nuevoId,
                         nombre = nombre,
                         nivel = nivel,
                         video = url
                     )
-
-                    // Guardar en Firebase usando el ID personalizado
                     FirebaseManager.agregarWorkoutConId(nuevoWorkout)
 
-                    // Actualizar UI
                     withContext(Dispatchers.Main) {
                         workoutsList.add(nuevoWorkout)
                         adapter.notifyItemInserted(workoutsList.size - 1)
-
                         editTextNombre.text.clear()
                         editTextNivel.text.clear()
                         editTextVideo.text.clear()
-
                         Toast.makeText(this@EntrenadorActivity, "Workout añadido: $nuevoId", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
@@ -227,7 +245,6 @@ class EntrenadorActivity : BaseActivity() {
         }
     }
 
-
     private fun cerrarSesion() {
         val intent = Intent(this, MainLogin::class.java)
         startActivity(intent)
@@ -236,11 +253,12 @@ class EntrenadorActivity : BaseActivity() {
 
     private fun accederPerfil() {
         val intent = Intent(this, MainPerfilActivity::class.java)
+        // Pasar el objeto completo del entrenador para evitar problemas
+        intent.putExtra("entrenador", entrenador)
         startActivity(intent)
-        finish()
     }
 
-    private fun cargarWorkoutsFirebase(id: String) {
+    private fun cargarWorkoutsFirebase() {
         lifecycleScope.launch {
             try {
                 workoutsList.clear()
@@ -262,4 +280,3 @@ class EntrenadorActivity : BaseActivity() {
         }
     }
 }
-

@@ -26,9 +26,7 @@ class MainLogin : BaseActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var usuario: EditText
     private lateinit var password: EditText
-
-    private lateinit var cbRemember: CheckBox
-
+    private lateinit var cbRemember: CheckBox  // ← correctamente inicializada
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,146 +37,105 @@ class MainLogin : BaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         // Inicializar Firestore
         db = Firebase.firestore
 
-        // Inicializar las vistas
+        // Inicializar vistas
         usuario = findViewById(R.id.InputEmail)
         password = findViewById(R.id.InputContrasenya)
+        cbRemember = findViewById(R.id.cbRemember)  // ← aquí se inicializa
 
         cargarDatosGuardados()
 
         findViewById<Button>(R.id.btnRegistrate).setOnClickListener {
-            val intent = Intent(this, MainRegistro::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainRegistro::class.java))
             finish()
         }
 
         findViewById<Button>(R.id.btnLogin).setOnClickListener {
             iniciarSesion()
-
         }
-
     }
 
-    /**
-     * Función que gestiona el inicio de sesión del usuario.
-     *
-     * - Valida que los campos de email y contraseña no estén vacíos.
-     * - Realiza una consulta en Firestore para verificar las credenciales.
-     * - Si son correctas, muestra un mensaje de bienvenida y abre la actividad principal.
-     * - Si son incorrectas o hay un error, muestra un mensaje de advertencia.
-     *
-     * Requiere:
-     * - Una colección "GymEloiteBD" > documento "gym_01" > subcolección "Clientes".
-     * - Documentos con campos "email" y "password".
-     */
     @SuppressLint("UseKtx")
     private fun iniciarSesion() {
-        val email = findViewById<EditText>(R.id.InputEmail).text.toString().trim()
-        val password = findViewById<EditText>(R.id.InputContrasenya).text.toString().trim()
-        val cbRecordar = findViewById<CheckBox>(R.id.cbRemember) // asegúrate de tener este checkbox en el XML
+        val email = usuario.text.toString().trim()
+        val pass = password.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val db = FirebaseFirestore.getInstance()
-
-        // 🔍 Buscar CLIENTE
+        // 🔹 Primero buscamos en Clientes
         db.collection("GymElorrietaBD")
             .document("gym_01")
             .collection("Clientes")
             .whereEqualTo("email", email)
-            .whereEqualTo("password", password)
+            .whereEqualTo("password", pass)
             .get()
             .addOnSuccessListener { documents ->
                 val cliente = documents.documents.firstOrNull()?.toObject(Cliente::class.java)
 
-                // 🔍 Buscar ENTRENADOR
+                if (cliente != null) {
+                    guardarSesion(email, pass, "cliente", cliente.id)
+                    if (cbRemember.isChecked) guardarDatos(email, pass) else borrarDatos()
+                    Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, HistoricoActivity::class.java).apply {
+                        putExtra("cliente", cliente)
+                    })
+                    finish()
+                    return@addOnSuccessListener
+                }
+
+                // 🔹 Si no es cliente, buscamos en Entrenadores
                 db.collection("GymElorrietaBD")
                     .document("gym_01")
                     .collection("Entrenadores")
                     .whereEqualTo("email", email)
-                    .whereEqualTo("password", password)
+                    .whereEqualTo("password", pass)
                     .get()
-                    .addOnSuccessListener { documents ->
-                        val entrenador =
-                            documents.documents.firstOrNull()?.toObject(Entrenador::class.java)
+                    .addOnSuccessListener { docsEntrenador ->
+                        val entrenador = docsEntrenador.documents.firstOrNull()?.toObject(Entrenador::class.java)
 
-                        when {
-                            cliente != null -> {
-                                // ✅ Guardar datos si se marcó la checkbox
-                                if (cbRecordar.isChecked) {
-                                    guardarDatos(email, password)
-                                } else {
-                                    borrarDatos()
-                                }
+                        if (entrenador != null) {
+                            // Guardar sesión mínima (solo id, email, rol)
+                            guardarSesion(email, pass, "entrenador", entrenador.id)
 
-                                // Guardar sesión actual
-                                val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-                                with(sharedPref.edit()) {
-                                    putString("user_email", email)
-                                    putString("user_password", password)
-                                    putString("user_role", "cliente")
-                                    apply()
-                                }
+                            // Guardar datos de recordar sesión si corresponde
+                            if (cbRemember.isChecked) guardarDatos(email, pass) else borrarDatos()
 
-                                Toast.makeText(this, "Bienvenido ${cliente.nombre}", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, HistoricoActivity::class.java).apply {
-                                    putExtra("cliente", cliente)
-                                })
-                                finish()
-                            }
+                            Toast.makeText(this, "Bienvenido ${entrenador.nombre}", Toast.LENGTH_SHORT).show()
 
-                            entrenador != null -> {
-                                if (cbRecordar.isChecked) {
-                                    guardarDatos(email, password)
-                                } else {
-                                    borrarDatos()
-                                }
-
-                                    Toast.makeText(
-                                        this,
-                                        "Bienvenido ${entrenador.nombre}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    startActivity(
-                                        Intent(
-                                            this,
-                                            EntrenadorActivity::class.java
-                                        ).apply {
-                                            putExtra("entrenador", entrenador)
-                                        })
-                                    finish()
-                                val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-                                with(sharedPref.edit()) {
-                                    putString("user_email", email)
-                                    putString("user_password", password)
-                                    putString("user_role", "entrenador")
-                                    apply()
-                                }
-
-                                Toast.makeText(this, "Bienvenido ${entrenador.nombre}", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, MainPerfilActivity::class.java).apply {
-                                    putExtra("entrenador", entrenador)
-                                })
-                                finish()
-                            }
-
-                            else -> {
-                                Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
-                            }
+                            // Pasar objeto completo por Intent
+                            val intent = Intent(this, EntrenadorActivity::class.java)
+                            intent.putExtra("entrenador", entrenador)
+                            startActivity(intent)
+                            finish()
                         }
+
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Error al buscar entrenador: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
+
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al buscar cliente: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    @SuppressLint("UseKtx")
+    private fun guardarSesion(email: String, pass: String, rol: String, userId: String) {
+        val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("user_email", email)
+            putString("user_password", pass)
+            putString("user_role", rol)
+            putString("user_id", userId)
+            apply()
+        }
     }
 
     @SuppressLint("UseKtx")
@@ -195,13 +152,10 @@ class MainLogin : BaseActivity() {
     private fun cargarDatosGuardados() {
         val prefs = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
         val recordar = prefs.getBoolean("recordar", false)
-        val emailGuardado = prefs.getString("email", "")
-        val passGuardada = prefs.getString("password", "")
-
         if (recordar) {
-            findViewById<EditText>(R.id.InputEmail).setText(emailGuardado)
-            findViewById<EditText>(R.id.InputContrasenya).setText(passGuardada)
-            findViewById<CheckBox>(R.id.cbRemember).isChecked = true
+            usuario.setText(prefs.getString("email", ""))
+            password.setText(prefs.getString("password", ""))
+            cbRemember.isChecked = true
         }
     }
 
@@ -210,6 +164,3 @@ class MainLogin : BaseActivity() {
         prefs.edit { clear() }
     }
 }
-
-
-
