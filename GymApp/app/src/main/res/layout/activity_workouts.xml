@@ -117,6 +117,7 @@
         android:id="@+id/etNuevoNombre"
         android:layout_width="203dp"
         android:layout_height="24dp"
+        android:autofillHints=""
         android:background="@null"
         android:ems="10"
         android:inputType="text"
@@ -125,12 +126,14 @@
         app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+        app:layout_constraintVertical_bias="0.687"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/etNuevoNivel"
         android:layout_width="203dp"
         android:layout_height="24dp"
+        android:autofillHints=""
         android:background="@null"
         android:ems="10"
         android:inputType="text"

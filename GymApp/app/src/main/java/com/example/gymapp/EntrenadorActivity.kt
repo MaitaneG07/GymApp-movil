@@ -33,11 +33,11 @@ class EntrenadorActivity : BaseActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: WorkoutAdapter
     private val workoutsList = mutableListOf<Workout>()
+
+    private var allWorkoutsList = mutableListOf<Workout>()
     private lateinit var db: FirebaseFirestore
 
     private var entrenador: Entrenador? = null
-
-    private val workoutsList = mutableListOf<Workout>()
 
     private lateinit var spinner: Spinner
 

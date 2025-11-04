@@ -26,6 +26,8 @@ class MainPerfilActivity : BaseActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
     private lateinit var perfilAdapter: PerfilAdapter<*>
+
+    //private val listaClientes = mutableListOf<Cliente>()
     private var usuarioLogeado: Any? = null // Cliente o Entrenador
 
     @SuppressLint("MissingInflatedId", "UseKtx")
@@ -67,71 +69,71 @@ class MainPerfilActivity : BaseActivity() {
             cargarDesdeSharedPreferences()
         }
 
-        findViewById<Button>(R.id.buttonVolver2).setOnClickListener {
-            val intent = Intent(this, HistoricoActivity::class.java)
-        // Tema oscuro/idioma
-        configurarTemaEIdioma()
+            configurarTemaEIdioma()
+
     }
 
-    private fun cargarDesdeSharedPreferences() {
-        val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
-        val rol = sharedPref.getString("user_role", "cliente") ?: "cliente"
-        val id = sharedPref.getString("user_id", null)
+        private fun cargarDesdeSharedPreferences() {
+            val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
+            val rol = sharedPref.getString("user_role", "cliente") ?: "cliente"
+            val id = sharedPref.getString("user_id", null)
 
-        // ✅ Validar que el ID existe
-        if (id.isNullOrEmpty()) {
-            Toast.makeText(this, "Error: No se encontró el ID del usuario", Toast.LENGTH_SHORT)
-                .show()
-            finish()
-            return
-        }
+            // ✅ Validar que el ID existe
+            if (id.isNullOrEmpty()) {
+                Toast.makeText(this, "Error: No se encontró el ID del usuario", Toast.LENGTH_SHORT)
+                    .show()
+                finish()
+                return
+            }
 
-        if (rol == "cliente") {
-            db.collection("GymElorrietaBD")
-                .document("gym_01")
-                .collection("Clientes")
-                .document(id)
-                .get()
-                .addOnSuccessListener { doc ->
-                    val cliente = doc.toObject(Cliente::class.java)
-                    if (cliente != null) {
-                        usuarioLogeado = cliente
-                        perfilAdapter = PerfilAdapter(cliente)
-                        recyclerView.adapter = perfilAdapter
-                        configurarBotones("cliente")
-                    } else {
-                        Toast.makeText(this, "Cliente no encontrado", Toast.LENGTH_SHORT).show()
+            if (rol == "cliente") {
+                db.collection("GymElorrietaBD")
+                    .document("gym_01")
+                    .collection("Clientes")
+                    .document(id)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val cliente = doc.toObject(Cliente::class.java)
+                        if (cliente != null) {
+                            usuarioLogeado = cliente
+                            perfilAdapter = PerfilAdapter(cliente)
+                            recyclerView.adapter = perfilAdapter
+                            configurarBotones("cliente")
+                        } else {
+                            Toast.makeText(this, "Cliente no encontrado", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         finish()
                     }
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-        } else if (rol == "entrenador") {
-            db.collection("GymElorrietaBD")
-                .document("gym_01")
-                .collection("Entrenadores")
-                .document(id)
-                .get()
-                .addOnSuccessListener { doc ->
-                    val entrenador = doc.toObject(Entrenador::class.java)
-                    if (entrenador != null) {
-                        usuarioLogeado = entrenador
-                        perfilAdapter = PerfilAdapter(entrenador)
-                        recyclerView.adapter = perfilAdapter
-                        configurarBotones("entrenador")
-                    } else {
-                        Toast.makeText(this, "Entrenador no encontrado", Toast.LENGTH_SHORT).show()
+            } else if (rol == "entrenador") {
+                db.collection("GymElorrietaBD")
+                    .document("gym_01")
+                    .collection("Entrenadores")
+                    .document(id)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val entrenador = doc.toObject(Entrenador::class.java)
+                        if (entrenador != null) {
+                            usuarioLogeado = entrenador
+                            perfilAdapter = PerfilAdapter(entrenador)
+                            recyclerView.adapter = perfilAdapter
+                            configurarBotones("entrenador")
+                        } else {
+                            Toast.makeText(this, "Entrenador no encontrado", Toast.LENGTH_SHORT)
+                                .show()
+                            finish()
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                         finish()
                     }
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
+            }
         }
-    }
+
 
     private fun configurarBotones(rol: String) {
         // Botón volver
@@ -180,7 +182,7 @@ class MainPerfilActivity : BaseActivity() {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
+   /** @SuppressLint("NotifyDataSetChanged")
     private fun cargarDatosCliente() {
         // Obtener email y password guardados (por ejemplo, de SharedPreferences o Intent)
         val sharedPref = getSharedPreferences("UserSession", MODE_PRIVATE)
@@ -232,6 +234,7 @@ class MainPerfilActivity : BaseActivity() {
                 ).show()
             }
     }
+   **/
 
     private fun actualizarIconoTema(button: ImageButton, isDarkMode: Boolean) {
         button.setImageResource(if (isDarkMode) R.drawable.soleado else R.drawable.luna)
