@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".MainPerfilActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPerfil"
         android:layout_width="243dp"

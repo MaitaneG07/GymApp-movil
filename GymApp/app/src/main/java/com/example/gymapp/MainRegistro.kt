@@ -109,7 +109,7 @@ class MainRegistro : BaseActivity() {
             "nombre" to nombreText,
             "apellido1" to apellido1Text,
             "apellido2" to apellido2Text,
-            "fecha_nacimiento" to fechaText,
+            "fechaNacimiento" to fechaText,
             "email" to emailText,
             "password" to passwordText
         )
