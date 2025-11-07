@@ -50,7 +50,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation(libs.firebase.firestore)
+    implementation(libs.material.v1120)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.analytics)

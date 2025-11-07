@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_normal">#5E4B8B</color>
+    <color name="purple_hover">#7E5BEF</color>
+    <color name="color_eliminar">#F05237</color>
+
+    <color name="green_primary">#47612A</color>
+    <color name="green_light">#6B8E3D</color>
+    <color name="gray_dark">#333333</color>
+    <color name="gray_light">#CCCCCC</color>
 </resources>
