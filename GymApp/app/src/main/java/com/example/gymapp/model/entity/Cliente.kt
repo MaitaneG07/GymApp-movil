@@ -8,7 +8,7 @@ data class Cliente(
         var nombre: String = "",
         var apellido1: String = "",
         var apellido2: String = "",
-        var fecha_nacimiento: String = "",
+        var fechaNacimiento: String = "",
         var email: String = "",
         var nivel: String ="",
         var password: String = ""

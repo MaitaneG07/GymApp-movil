@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistoricoActivity">
+
+    <ImageButton
+        android:id="@+id/imageViewPerfil"
+        android:layout_width="133dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/logoapp"
+        android:contentDescription="@string/men_de_opciones"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <TextView
+        android:id="@+id/textViewWorkout"
+        android:layout_width="192dp"
+        android:layout_height="47dp"
+        android:text="@string/workoutText_title"
+        android:textAlignment="center"
+        android:textColor="#47612A"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="215dp"
+        tools:layout_editor_absoluteY="32dp" />
+
+    <TextView
+        android:id="@+id/textViewLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/workoutText_userLevel"
+        tools:layout_editor_absoluteX="455dp"
+        tools:layout_editor_absoluteY="45dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="163dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHistorico"
+        android:layout_width="491dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="105dp" />
+
+    <TextView
+        android:id="@+id/textNivelWO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:text="@string/workoutText_filtrar"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="354dp" />
+
+    <Button
+        android:id="@+id/buttonFiltrarWO"
+        android:layout_width="90dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="68dp"
+        android:backgroundTint="#4CAF50"
+        android:text="@string/buttonFiltrar"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="354dp" />
+
+    <TextView
+        android:id="@+id/mostrarLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewLevel"
+        app:layout_constraintStart_toEndOf="@+id/textViewLevel"
+        app:layout_constraintTop_toTopOf="@+id/textViewLevel"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/spinnerFiltro"
+        android:layout_width="197dp"
+        android:layout_height="27dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFiltrarWO"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toEndOf="@+id/textNivelWO"
+        tools:layout_editor_absoluteY="354dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
